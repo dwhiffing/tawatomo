@@ -1,5 +1,7 @@
-import Background from '../sprites/Background'
-import Character from '../sprites/Character'
+import Background from '../../sprites/Background'
+import Character from '../../sprites/Character'
+import Item from '../../sprites/Item'
+import GameScene from './GameScene'
 
 const MERCHANT = {
   text: 'I WANT SHINY',
@@ -9,24 +11,24 @@ const MERCHANT = {
   },
 }
 
-export default class extends Phaser.Scene {
+export default class extends GameScene {
   constructor() {
     super({ key: 'Forest' })
   }
-
   create() {
     this.exits = ['Ship', 'Village', 'Cave', 'Hill']
 
     new Background(this, 'forest')
-    new Character(this, 1000, 400, 'merchant', MERCHANT)
+    const merchant = new Character(this, 1000, 400, 'merchant', MERCHANT)
+    new Item(this, 500, 400, 'part', () => {
+      merchant.respond('NO TAKE MY SHINY')
+    })
+
+    this.showInventory()
 
     this.input.on(
       'pointerdown',
-      function(pointer) {
-        if (!this.data.values.talking) {
-          this.scene.start(this.getExitFromPointer(pointer))
-        }
-      },
+      pointer => this.goto(this.getExitFromPointer(pointer)),
       this,
     )
   }

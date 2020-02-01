@@ -21,6 +21,10 @@ export default class extends Phaser.Scene {
     this.load.image('monster', 'assets/images/monster.png')
     this.load.image('orange', 'assets/images/orange.png')
 
+    this.load.image('ladder', 'assets/images/ladder.png')
+    this.load.image('fish', 'assets/images/fish.png')
+    this.load.image('part', 'assets/images/part.png')
+
     this.load.image('ship', 'assets/images/ship.jpg')
     this.load.image('hill', 'assets/images/mountain.jpg')
     this.load.image('cave', 'assets/images/cave.jpg')

@@ -1,12 +1,13 @@
 import Phaser from 'phaser'
 import BootScene from './scenes/Boot'
 import MenuScene from './scenes/Menu'
-import ShipScene from './scenes/Ship'
-import ForestScene from './scenes/Forest'
-import VillageScene from './scenes/Village'
-import CaveScene from './scenes/Cave'
-import HillScene from './scenes/Hill'
 import CreditsScene from './scenes/Credits'
+
+import ShipScene from './scenes/GameScenes/Ship'
+import ForestScene from './scenes/GameScenes/Forest'
+import VillageScene from './scenes/GameScenes/Village'
+import CaveScene from './scenes/GameScenes/Cave'
+import HillScene from './scenes/GameScenes/Hill'
 
 const width = document.documentElement.clientWidth
 const height = document.documentElement.clientHeight
