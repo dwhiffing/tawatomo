@@ -16,7 +16,7 @@ export default class extends GameScene {
       text: 'ME WANT WEALTH',
       responses: {
         ...GENERIC_RESPONSES,
-        'GIVE ME WEALTH': 'NO GIVE ME WEALTH',
+        'GIVE ME WEALTH': 'NO YOU GIVE ME WEALTH',
         default: 'ME WANT WEALTH',
       },
     })

@@ -45,4 +45,4 @@ export const WORDS = [
 
 export const GENERIC_RESPONSES = {}
 
-export const IS_ENGLISH = true
+export const IS_ENGLISH = false

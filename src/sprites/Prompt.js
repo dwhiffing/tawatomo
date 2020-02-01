@@ -25,7 +25,7 @@ export default class Prompt {
     responseGlyphs = []
     let numWords = 0
 
-    this.confirmButton = scene.add
+    this.submitButton = scene.add
       .text(x + 670, y + 300, 'O', {
         fontFamily: 'Arial',
         fontSize: 20,
@@ -97,14 +97,19 @@ export default class Prompt {
             'glyph-dark',
           )
           responseGlyph.setFrame(WORDS.indexOf(this.word))
+          responseGlyph.word = this.word
           responseGlyph.setOrigin(0, 0)
-          responseGlyphs[responseGlyphs.length - 1] = responseGlyph
+          responseGlyphs.push(responseGlyph)
         }
       })
     })
   }
 
   back() {
+    if (responseGlyphs.length === 0) {
+      this.submit()
+      return
+    }
     let thing = responseGlyphs.pop()
     if (IS_ENGLISH) {
       displayText.setText(responseGlyphs.join(' '))
@@ -114,7 +119,11 @@ export default class Prompt {
   }
 
   submit() {
-    this.callback(displayText.text.trim())
+    if (IS_ENGLISH) {
+      this.callback(displayText.text.trim())
+    } else {
+      this.callback(responseGlyphs.map(r => r.word).join(' '))
+    }
     if (!IS_ENGLISH) {
       responseGlyphs.forEach(r => r.destroy())
     }
@@ -122,8 +131,10 @@ export default class Prompt {
   }
 
   destroy() {
-    this.textObjects.concat([this.rect, displayText]).forEach(text => {
-      text.destroy()
-    })
+    this.textObjects
+      .concat([this.rect, displayText, this.backButton, this.submitButton])
+      .forEach(text => {
+        text.destroy()
+      })
   }
 }

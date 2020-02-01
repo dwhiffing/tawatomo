@@ -17,6 +17,10 @@ export default class Character {
   respond(text, shouldPrompt) {
     if (shouldPrompt) {
       new Dialog(this.scene, text, this.data.sound, response => {
+        if (!response) {
+          return
+        }
+
         let nextThingToSay = this.data.responses[response]
         if (typeof nextThingToSay === 'function') {
           nextThingToSay = nextThingToSay()
