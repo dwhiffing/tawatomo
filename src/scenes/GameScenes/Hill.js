@@ -18,7 +18,7 @@ export default class extends GameScene {
     new Character(this, 1000, 400, 'orange', STUCK)
 
     const ladder = new Item(this, 500, 400, 'ladder', () => {
-      this.takeItem(ladder)
+      this.takeItem('ladder', ladder)
     })
 
     this.input.on('pointerdown', () => this.goto('Forest'), this)

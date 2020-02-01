@@ -7,6 +7,7 @@ export default class extends GameScene {
   }
   create() {
     if (!this.data.values.inventory) {
+      this.data.values.usedItems = []
       this.data.values.inventory = []
     }
     new Background(this, 'ship')

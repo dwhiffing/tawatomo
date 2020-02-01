@@ -8,10 +8,26 @@ export default class GameScene extends Phaser.Scene {
     this.inventorySprites = []
   }
 
-  takeItem(item) {
-    this.data.values.inventory = [...this.data.values.inventory, item.name]
+  hasItem(item) {
+    return this.data.values.inventory.includes(item)
+  }
+
+  destroyItem(item) {
+    this.data.values.inventory = this.data.values.inventory.filter(
+      i => i !== item,
+    )
     this.showInventory()
-    item.destroy()
+  }
+
+  takeItem(item, sprite) {
+    this.data.values.usedItems = [...this.data.values.usedItems, item]
+    this.data.values.inventory = [...this.data.values.inventory, item]
+    this.showInventory()
+    sprite && sprite.destroy()
+  }
+
+  hasUsedItem(item) {
+    return this.data.values.usedItems.includes(item)
   }
 
   showInventory() {

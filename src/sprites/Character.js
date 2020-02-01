@@ -16,7 +16,10 @@ export default class Character {
 
   respond(text) {
     new Dialog(this.scene, text, response => {
-      const nextThingToSay = this.data.responses[response]
+      let nextThingToSay = this.data.responses[response]
+      if (typeof nextThingToSay === 'function') {
+        nextThingToSay = nextThingToSay()
+      }
       if (nextThingToSay) {
         this.respond(nextThingToSay)
       } else {
