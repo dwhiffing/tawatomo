@@ -1,4 +1,5 @@
 import Background from '../sprites/Background'
+import Character from '../sprites/Character'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -7,13 +8,14 @@ export default class extends Phaser.Scene {
 
   create() {
     new Background(this, 'cave')
+    new Character(this, 1000, 400, 'shark', 'I am hungry feed me')
 
-    this.add.image(1000, 400, 'shark')
-
-    this.input.once(
+    this.input.on(
       'pointerdown',
       function() {
-        this.scene.start('Forest')
+        if (!this.data.values.talking) {
+          this.scene.start('Forest')
+        }
       },
       this,
     )

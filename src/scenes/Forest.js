@@ -1,4 +1,5 @@
 import Background from '../sprites/Background'
+import Character from '../sprites/Character'
 
 export default class extends Phaser.Scene {
   constructor() {
@@ -9,13 +10,14 @@ export default class extends Phaser.Scene {
     this.exits = ['Ship', 'Village', 'Cave', 'Hill']
 
     new Background(this, 'forest')
+    new Character(this, 1000, 400, 'merchant', 'I want shiny. give me shiny')
 
-    this.add.image(1000, 400, 'merchant')
-
-    this.input.once(
+    this.input.on(
       'pointerdown',
       function(pointer) {
-        this.scene.start(this.getExitFromPointer(pointer))
+        if (!this.data.values.talking) {
+          this.scene.start(this.getExitFromPointer(pointer))
+        }
       },
       this,
     )
