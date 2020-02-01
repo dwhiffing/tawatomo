@@ -21,8 +21,31 @@ export default class Prompt {
     this.rect = scene.add.rectangle(x, y, rectWidth, rectHeight, 0x000000)
     this.rect.setOrigin(0, 0)
     this.textObjects = []
+    this.callback = callback
     responseGlyphs = []
     let numWords = 0
+
+    this.confirmButton = scene.add
+      .text(x + 670, y + 300, 'O', {
+        fontFamily: 'Arial',
+        fontSize: 20,
+      })
+      .setInteractive()
+      .on('pointerdown', (p, lx, ly, event) => {
+        event.stopPropagation()
+        this.submit()
+      })
+
+    this.backButton = scene.add
+      .text(300, y + 300, 'X', {
+        fontFamily: 'Arial',
+        fontSize: 20,
+      })
+      .setInteractive()
+      .on('pointerdown', (p, lx, ly, event) => {
+        event.stopPropagation()
+        this.back()
+      })
 
     displayText = scene.add.text(x, y - 100, '', {
       fontFamily: 'Arial',
@@ -30,7 +53,8 @@ export default class Prompt {
       color: 'black',
     })
 
-    const destroy = this.destroy.bind(this)
+    this.destroy = this.destroy.bind(this)
+
     WORDS.forEach((word, index) => {
       let text
       if (IS_ENGLISH) {
@@ -42,7 +66,7 @@ export default class Prompt {
             fontFamily: 'Arial',
             fontSize: 30,
             fixedWidth: X_ITEM_BUFFER,
-            fixedHeight: 100,
+            fixedHeight: 30,
           },
         )
       } else {
@@ -60,28 +84,41 @@ export default class Prompt {
       text.setInteractive()
       text.on('pointerdown', function(pointer, localX, localY, event) {
         event.stopPropagation()
+        if (responseGlyphs.length === 3) {
+          return
+        }
         if (IS_ENGLISH) {
-          displayText.setText(displayText.text + this._text + ' ')
+          responseGlyphs.push(this._text)
+          displayText.setText(responseGlyphs.join(' '))
         } else {
           const responseGlyph = scene.add.sprite(
-            x + X_ITEM_BUFFER * numWords + 200,
+            x + X_ITEM_BUFFER * responseGlyphs.length + 200,
             y - 100,
             'glyph-dark',
           )
           responseGlyph.setFrame(WORDS.indexOf(this.word))
           responseGlyph.setOrigin(0, 0)
-          responseGlyphs[numWords] = responseGlyph
-        }
-        numWords++
-        if (numWords === 3) {
-          setTimeout(() => {
-            callback(displayText.text.trim())
-            responseGlyphs.forEach(r => r.destroy())
-            destroy()
-          }, 500)
+          responseGlyphs[responseGlyphs.length - 1] = responseGlyph
         }
       })
     })
+  }
+
+  back() {
+    let thing = responseGlyphs.pop()
+    if (IS_ENGLISH) {
+      displayText.setText(responseGlyphs.join(' '))
+    } else {
+      thing.destroy()
+    }
+  }
+
+  submit() {
+    this.callback(displayText.text.trim())
+    if (!IS_ENGLISH) {
+      responseGlyphs.forEach(r => r.destroy())
+    }
+    this.destroy()
   }
 
   destroy() {

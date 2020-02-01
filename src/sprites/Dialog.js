@@ -37,9 +37,9 @@ export default class Dialog {
         this.textObject.destroy()
         this.glyphs.forEach(g => g.destroy())
         if (callback) {
-          new Prompt(this.scene, () => {
+          new Prompt(this.scene, response => {
             this.scene.data.values.talking = false
-            callback()
+            callback(response)
           })
         } else {
           this.scene.data.values.talking = false
