@@ -1,3 +1,5 @@
+import Prompt from './Prompt'
+
 export default class Dialog {
   constructor(scene, text) {
     this.scene = scene
@@ -30,6 +32,7 @@ export default class Dialog {
         this.rect.setVisible(false)
         this.textObject.setActive(false)
         this.textObject.setVisible(false)
+        new Prompt(this.scene)
       }
     })
   }
@@ -43,11 +46,11 @@ export default class Dialog {
     }
     if (wordArray[this.cursor + 1]) {
       this.cursor += 1
-      setTimeout(this.updateText, 250)
+      setTimeout(this.updateText, 100)
     } else {
       setTimeout(() => {
         this.scene.data.values.talking = false
-      }, 500)
+      }, 100)
     }
   }
 }
