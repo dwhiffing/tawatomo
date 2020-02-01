@@ -4,9 +4,9 @@ import GameScene from './GameScene'
 import Item from '../../sprites/Item'
 
 const MOTHER = {
-  text: 'MY CHILD GONE',
+  text: 'ME SMALL PERSON GO',
   responses: {
-    default: 'MY CHILD GONE',
+    default: 'ME SMALL PERSON GO',
   },
 }
 

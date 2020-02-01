@@ -1,17 +1,4 @@
-const WORDS = [
-  'ME',
-  'YOU',
-  'YES',
-  'NO',
-  'GIVE',
-  'TAKE',
-  'TINY',
-  'BIG',
-  'FOOD',
-  'SHINY',
-  'KID',
-  'ROPE',
-]
+import { WORDS } from '../index'
 
 const NUM_PER_ROW = 4
 const X_ITEM_BUFFER = 125

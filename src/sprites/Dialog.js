@@ -1,4 +1,7 @@
 import Prompt from './Prompt'
+import { WORDS } from '..'
+
+const IS_ENGLISH = false
 
 export default class Dialog {
   constructor(scene, text, callback) {
@@ -12,6 +15,8 @@ export default class Dialog {
 
     const x = 100
     const y = height - 250
+    this.x = x
+    this.y = y
     const rectWidth = width - 200
     const rectHeight = 200
     this.rect = scene.add.rectangle(x, y, rectWidth, rectHeight, 0x000000)
@@ -44,7 +49,17 @@ export default class Dialog {
     const nextText = wordArray[this.cursor]
     if (nextText) {
       this.displayString += ` ${nextText}`
-      this.textObject.setText(this.displayString)
+      if (IS_ENGLISH) {
+        this.textObject.setText(this.displayString)
+      } else {
+        const glyph = this.scene.add.sprite(
+          this.x + this.cursor * 100,
+          this.y,
+          'glyph',
+        )
+        glyph.setFrame(WORDS.indexOf(nextText))
+        glyph.setOrigin(0, 0)
+      }
     }
     if (wordArray[this.cursor + 1]) {
       this.cursor += 1

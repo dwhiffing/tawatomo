@@ -16,6 +16,11 @@ export default class extends Phaser.Scene {
       )
     })
 
+    this.load.spritesheet('glyph', 'assets/images/glyphs-light.png', {
+      frameWidth: 100,
+      frameHeight: 100,
+    })
+
     this.load.image('shark', 'assets/images/shark.png')
     this.load.image('merchant', 'assets/images/merchant.png')
     this.load.image('monster', 'assets/images/monster.png')

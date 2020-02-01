@@ -19,3 +19,26 @@ const game = new Phaser.Game({
 })
 
 export default game
+
+export const WORDS = [
+  'YOU',
+  'ME',
+  'YES',
+  'NO',
+  'GIVE',
+  'HAVE',
+  'GO',
+  'THAT',
+  'MANY',
+  'ONE',
+  'HOT',
+  'COLD',
+  'EAT',
+  'FOOD',
+  'WEALTH',
+  'WANT',
+  'BIG',
+  'SMALL',
+  'PERSON',
+  'HOME',
+]

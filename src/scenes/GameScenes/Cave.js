@@ -10,18 +10,18 @@ export default class extends GameScene {
   create() {
     new Background(this, 'cave')
     const shark = new Character(this, 1000, 400, 'shark', {
-      text: 'I AM HUNGRY',
+      text: 'ME NO HAVE FOOD ME WANT FOOD',
       responses: {
-        'YOU TAKE FOOD': () => {
+        'YOU HAVE FOOD': () => {
           if (this.hasItem('cookedFish')) {
             this.destroyItem('cookedFish')
-            return 'THANKS COMBO IS LITTLE BIG LITTLE'
+            return 'MANY YES'
           } else if (this.hasItem('fish')) {
-            return 'COOK IT'
+            return 'NO COLD. ME WANT HOT FOOD'
           }
-          return 'NO FOOD'
+          return 'ME WANT FOOD'
         },
-        default: 'I AM HUNGRY',
+        default: 'ME WANT FOOD',
       },
     })
 

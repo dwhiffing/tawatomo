@@ -4,9 +4,9 @@ import Item from '../../sprites/Item'
 import GameScene from './GameScene'
 
 const STUCK = {
-  text: 'I AM STUCK',
+  text: 'ME NO GO HOME',
   responses: {
-    default: 'I AM STUCK',
+    default: 'ME NO GO HOME',
   },
 }
 export default class extends GameScene {

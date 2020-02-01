@@ -4,10 +4,10 @@ import Item from '../../sprites/Item'
 import GameScene from './GameScene'
 
 const MERCHANT = {
-  text: 'I WANT SHINY',
+  text: 'ME WANT WEALTH',
   responses: {
-    'GIVE ME SHINY': 'NO GIVE ME SHINY',
-    default: 'NO I WANT SHINY',
+    'GIVE ME WEATH': 'NO GIVE ME WEALTH',
+    default: 'ME WANT WEALTH',
   },
 }
 
@@ -21,7 +21,7 @@ export default class extends GameScene {
     new Background(this, 'forest')
     const merchant = new Character(this, 1000, 400, 'merchant', MERCHANT)
     new Item(this, 500, 400, 'part', () => {
-      merchant.respond('NO TAKE MY SHINY')
+      merchant.respond('YOU NO HAVE THAT WEALTH ME')
     })
 
     this.showInventory()
