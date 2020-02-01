@@ -24,6 +24,11 @@ export default class extends GameScene {
         default: 'I AM HUNGRY',
       },
     })
+
+    new Item(this, 200, 200, 'lock', () => {
+      this.goto('Cage')
+    })
+
     if (!this.hasUsedItem('fish')) {
       const fish = new Item(this, 500, 400, 'fish', () => {
         this.takeItem('fish', fish)
