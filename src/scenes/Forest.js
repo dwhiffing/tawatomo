@@ -1,6 +1,14 @@
 import Background from '../sprites/Background'
 import Character from '../sprites/Character'
 
+const MERCHANT = {
+  text: 'I WANT SHINY',
+  responses: {
+    'GIVE ME SHINY': 'NO GIVE ME SHINY',
+    default: 'NO I WANT SHINY',
+  },
+}
+
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Forest' })
@@ -10,7 +18,7 @@ export default class extends Phaser.Scene {
     this.exits = ['Ship', 'Village', 'Cave', 'Hill']
 
     new Background(this, 'forest')
-    new Character(this, 1000, 400, 'merchant', 'I want shiny. give me shiny')
+    new Character(this, 1000, 400, 'merchant', MERCHANT)
 
     this.input.on(
       'pointerdown',

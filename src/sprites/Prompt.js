@@ -20,12 +20,11 @@ const PADDING = 20
 let displayText
 
 export default class Prompt {
-  constructor(scene) {
+  constructor(scene, callback = () => {}) {
     this.scene = scene
     this.cursor = 0
     const width = scene.game.config.width
     const height = scene.game.config.height
-    this.scene.data.values.talking = true
 
     const x = 400
     const y = height - 250
@@ -61,6 +60,7 @@ export default class Prompt {
         displayText.setText(displayText.text + this._text + ' ')
         if (numWords === 3) {
           setTimeout(() => {
+            callback(displayText.text.trim())
             destroy()
           }, 500)
         }

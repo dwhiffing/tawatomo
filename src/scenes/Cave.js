@@ -1,6 +1,13 @@
 import Background from '../sprites/Background'
 import Character from '../sprites/Character'
 
+const HUNGRY = {
+  text: 'I AM HUNGRY',
+  responses: {
+    default: 'I AM HUNGRY',
+  },
+}
+
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Cave' })
@@ -8,7 +15,7 @@ export default class extends Phaser.Scene {
 
   create() {
     new Background(this, 'cave')
-    new Character(this, 1000, 400, 'shark', 'I am hungry feed me')
+    new Character(this, 1000, 400, 'shark', HUNGRY)
 
     this.input.on(
       'pointerdown',

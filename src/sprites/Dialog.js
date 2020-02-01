@@ -1,7 +1,7 @@
 import Prompt from './Prompt'
 
 export default class Dialog {
-  constructor(scene, text) {
+  constructor(scene, text, callback) {
     this.scene = scene
     this.text = text
     this.displayString = ''
@@ -32,7 +32,9 @@ export default class Dialog {
         this.rect.setVisible(false)
         this.textObject.setActive(false)
         this.textObject.setVisible(false)
-        new Prompt(this.scene)
+        if (callback) {
+          new Prompt(this.scene, callback)
+        }
       }
     })
   }
