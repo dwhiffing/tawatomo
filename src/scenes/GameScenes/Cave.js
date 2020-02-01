@@ -21,6 +21,7 @@ export default class extends GameScene {
     }
     const shark = new Character(this, 1000, 400, 'shark', {
       text: 'ME NO HAVE FOOD ME WANT FOOD',
+      sound: 'dialog2',
       responses: {
         ...GENERIC_RESPONSES,
         'YOU HAVE FOOD': giveFood,

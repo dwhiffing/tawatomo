@@ -65,6 +65,7 @@ export default class Dialog {
         )
         glyph.setFrame(WORDS.indexOf(nextText))
         glyph.setOrigin(0, 0)
+        glyph.setScale(0.5)
         this.glyphs.push(glyph)
       }
     }

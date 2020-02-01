@@ -20,8 +20,8 @@ export default class extends Phaser.Scene {
     this.load.audio('dialog2', 'assets/audio/dialog2.wav')
 
     this.load.spritesheet('glyph', 'assets/images/glyphs-light.png', {
-      frameWidth: 100,
-      frameHeight: 100,
+      frameWidth: 200,
+      frameHeight: 200,
     })
 
     this.load.spritesheet('glyph-dark', 'assets/images/glyphs.png', {

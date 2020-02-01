@@ -77,7 +77,7 @@ export default class Prompt {
         )
         text.setFrame(WORDS.indexOf(word))
         text.setOrigin(0, 0)
-        text.setScale(0.7)
+        text.setScale(0.5)
         text.word = word
       }
       this.textObjects[index] = text

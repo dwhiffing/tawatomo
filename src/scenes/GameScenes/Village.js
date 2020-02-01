@@ -20,7 +20,7 @@ export default class extends GameScene {
     }
 
     new Background(this, 'village')
-    new Character(this, 1000, 400, 'monster', {
+    const monster = new Character(this, 1000, 400, 'monster', {
       text: 'ME SMALL PERSON GO',
       responses: {
         ...GENERIC_RESPONSES,
@@ -29,10 +29,7 @@ export default class extends GameScene {
       },
     })
     new Item(this, 500, 400, 'fire', () => {
-      if (this.hasItem('fish')) {
-        this.destroyItem('fish')
-        this.takeItem('cookedFish')
-      }
+      monster.respond('YOU NO HAVE HOT')
     })
 
     this.input.on('pointerdown', () => this.goto('Forest'), this)
