@@ -6,7 +6,9 @@ export default class Item {
     this.sprite.setInteractive()
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
       event.stopPropagation()
-      callback()
+      if (!this.scene.data.values.talking) {
+        callback()
+      }
     })
   }
   destroy() {

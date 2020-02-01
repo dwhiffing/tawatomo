@@ -42,3 +42,7 @@ export const WORDS = [
   'PERSON',
   'HOME',
 ]
+
+export const GENERIC_RESPONSES = {}
+
+export const IS_ENGLISH = true

@@ -8,23 +8,27 @@ export default class Character {
     this.sprite.setInteractive()
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
       event.stopPropagation()
-      if (data.text) {
-        this.respond(data.text)
+      if (!this.scene.data.values.talking && data.text) {
+        this.respond(data.text, true)
       }
     })
   }
 
-  respond(text) {
-    new Dialog(this.scene, text, response => {
-      let nextThingToSay = this.data.responses[response]
-      if (typeof nextThingToSay === 'function') {
-        nextThingToSay = nextThingToSay()
-      }
-      if (nextThingToSay) {
-        this.respond(nextThingToSay)
-      } else {
-        new Dialog(this.scene, this.data.responses.default)
-      }
-    })
+  respond(text, shouldPrompt) {
+    if (shouldPrompt) {
+      new Dialog(this.scene, text, this.data.sound, response => {
+        let nextThingToSay = this.data.responses[response]
+        if (typeof nextThingToSay === 'function') {
+          nextThingToSay = nextThingToSay()
+        }
+        if (nextThingToSay) {
+          this.respond(nextThingToSay, true)
+        } else {
+          new Dialog(this.scene, this.data.responses.default, this.data.sound)
+        }
+      })
+    } else {
+      new Dialog(this.scene, text, this.data.sound)
+    }
   }
 }

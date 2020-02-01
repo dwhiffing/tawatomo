@@ -2,13 +2,7 @@ import Background from '../../sprites/Background'
 import Character from '../../sprites/Character'
 import GameScene from './GameScene'
 import Item from '../../sprites/Item'
-
-const MOTHER = {
-  text: 'ME SMALL PERSON GO',
-  responses: {
-    default: 'ME SMALL PERSON GO',
-  },
-}
+import { GENERIC_RESPONSES } from '../..'
 
 export default class extends GameScene {
   constructor() {
@@ -16,8 +10,24 @@ export default class extends GameScene {
   }
 
   create() {
+    const cookFood = () => {
+      if (this.hasItem('fish')) {
+        this.destroyItem('fish')
+        this.takeItem('cookedFish')
+        return 'YES'
+      }
+      return 'YOU NO HAVE FOOD'
+    }
+
     new Background(this, 'village')
-    new Character(this, 1000, 400, 'monster', MOTHER)
+    new Character(this, 1000, 400, 'monster', {
+      text: 'ME SMALL PERSON GO',
+      responses: {
+        ...GENERIC_RESPONSES,
+        'YOU HOT FOOD': cookFood,
+        default: 'ME SMALL PERSON GO',
+      },
+    })
     new Item(this, 500, 400, 'fire', () => {
       if (this.hasItem('fish')) {
         this.destroyItem('fish')

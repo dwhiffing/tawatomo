@@ -2,14 +2,7 @@ import Background from '../../sprites/Background'
 import Character from '../../sprites/Character'
 import Item from '../../sprites/Item'
 import GameScene from './GameScene'
-
-const MERCHANT = {
-  text: 'ME WANT WEALTH',
-  responses: {
-    'GIVE ME WEATH': 'NO GIVE ME WEALTH',
-    default: 'ME WANT WEALTH',
-  },
-}
+import { GENERIC_RESPONSES } from '../..'
 
 export default class extends GameScene {
   constructor() {
@@ -19,7 +12,14 @@ export default class extends GameScene {
     this.exits = ['Ship', 'Village', 'Cave', 'Hill']
 
     new Background(this, 'forest')
-    const merchant = new Character(this, 1000, 400, 'merchant', MERCHANT)
+    const merchant = new Character(this, 1000, 400, 'merchant', {
+      text: 'ME WANT WEALTH',
+      responses: {
+        ...GENERIC_RESPONSES,
+        'GIVE ME WEALTH': 'NO GIVE ME WEALTH',
+        default: 'ME WANT WEALTH',
+      },
+    })
     new Item(this, 500, 400, 'part', () => {
       merchant.respond('YOU NO HAVE THAT WEALTH ME')
     })

@@ -2,6 +2,7 @@ import Background from '../../sprites/Background'
 import Character from '../../sprites/Character'
 import Item from '../../sprites/Item'
 import GameScene from './GameScene'
+import { GENERIC_RESPONSES } from '../../'
 
 export default class extends GameScene {
   constructor() {
@@ -9,18 +10,21 @@ export default class extends GameScene {
   }
   create() {
     new Background(this, 'cave')
+    const giveFood = () => {
+      if (this.hasItem('cookedFish')) {
+        this.destroyItem('cookedFish')
+        return 'MANY YES'
+      } else if (this.hasItem('fish')) {
+        return 'NO COLD. ME WANT HOT FOOD'
+      }
+      return 'ME WANT FOOD'
+    }
     const shark = new Character(this, 1000, 400, 'shark', {
       text: 'ME NO HAVE FOOD ME WANT FOOD',
       responses: {
-        'YOU HAVE FOOD': () => {
-          if (this.hasItem('cookedFish')) {
-            this.destroyItem('cookedFish')
-            return 'MANY YES'
-          } else if (this.hasItem('fish')) {
-            return 'NO COLD. ME WANT HOT FOOD'
-          }
-          return 'ME WANT FOOD'
-        },
+        ...GENERIC_RESPONSES,
+        'YOU HAVE FOOD': giveFood,
+        'ME GIVE FOOD': giveFood,
         default: 'ME WANT FOOD',
       },
     })
