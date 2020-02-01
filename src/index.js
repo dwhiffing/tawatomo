@@ -1,32 +1,37 @@
 import Phaser from 'phaser'
-import logoImg from '../assets/logo.png'
+import BootScene from './scenes/Boot'
+import MenuScene from './scenes/Menu'
+import ShipScene from './scenes/Ship'
+import ForestScene from './scenes/Forest'
+import VillageScene from './scenes/Village'
+import CaveScene from './scenes/Cave'
+import HillScene from './scenes/Hill'
+import CreditsScene from './scenes/Credits'
 
-const config = {
+const width = document.documentElement.clientWidth
+const height = document.documentElement.clientHeight
+
+const game = new Phaser.Game({
+  transparent: true,
   type: Phaser.AUTO,
   parent: 'phaser-example',
-  width: 800,
-  height: 600,
-  scene: {
-    preload: preload,
-    create: create,
+  backgroundColor: '#000',
+  width,
+  height,
+  scene: [
+    BootScene,
+    MenuScene,
+    ShipScene,
+    ForestScene,
+    VillageScene,
+    CaveScene,
+    HillScene,
+    CreditsScene,
+  ],
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-}
+})
 
-const game = new Phaser.Game(config)
-
-function preload() {
-  this.load.image('logo', logoImg)
-}
-
-function create() {
-  const logo = this.add.image(400, 150, 'logo')
-
-  this.tweens.add({
-    targets: logo,
-    y: 450,
-    duration: 2000,
-    ease: 'Power2',
-    yoyo: true,
-    loop: -1,
-  })
-}
+export default game

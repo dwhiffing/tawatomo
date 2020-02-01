@@ -1,0 +1,44 @@
+Merchant
+  wants shiny thing, gives you ship piece
+Yes/No
+me/you
+give/take
+little/big
+shiny
+
+Hungry
+  wants food, give you something
+
+Ship
+  start of game
+  has monitor displaying warning that ship will explode and timer until explosion
+  end of game puzzle?
+
+Hub
+  merchant -> shiny
+  has piece to repair ship
+  has paths to village, cave, and hill
+  merchant talks to you about things you have encountered/collected?
+
+village
+  family looking for lost member -> lost member
+  has fire source to cook food
+  has ladder pieces part 1
+
+cave
+  hungry -> food
+  has combination puzzle
+  has food
+
+hill
+  trying to get something out of reach -> that thing
+  has hint for combination puzzle
+  has ladder pieces part 2
+
+puzzle 1
+  charcter is locked in cage, you have to find the combination
+
+puzzle 2
+  build ladder out of pieces
+
+puzzle 3
