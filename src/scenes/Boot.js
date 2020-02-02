@@ -25,29 +25,40 @@ export default class extends Phaser.Scene {
     })
 
     this.load.image('keyboard-bg', 'assets/images/keyboard-bg.png')
+    this.load.image('item-bg', 'assets/images/item-bg.png')
     this.load.image('character-bg', 'assets/images/character-bg.png')
     this.load.image('keyboard-input', 'assets/images/keyboard-input.png')
     this.load.image('shadow', 'assets/images/shadow.png')
     this.load.image('return', 'assets/images/return.png')
+    this.load.image('shipLogo', 'assets/images/ship.png')
+    this.load.image('trees', 'assets/images/trees.png')
 
-    this.load.image('shark', 'assets/images/shark.png')
-    this.load.image('merchant', 'assets/images/merchant.png')
+    this.load.spritesheet('bat', 'assets/images/bat.png', {
+      frameWidth: 1000,
+      frameHeight: 1000,
+    })
+    this.load.spritesheet('weasel', 'assets/images/weasel.png', {
+      frameWidth: 1000,
+      frameHeight: 1000,
+    })
     this.load.image('monster', 'assets/images/monster.png')
     this.load.image('orange', 'assets/images/orange.png')
 
     this.load.image('fish', 'assets/images/fish.png')
-    this.load.image('part', 'assets/images/part.png')
+    this.load.image('battery', 'assets/images/part.png')
     this.load.image('shiny', 'assets/images/shiny.png')
     this.load.image('fire', 'assets/images/fire.png')
+    this.load.image('batterySlot', 'assets/images/batterySlot.png')
     this.load.image('cookedFish', 'assets/images/cooked-fish.png')
 
     this.load.image('ship', 'assets/images/ship.jpg')
-    this.load.image('hill', 'assets/images/mountain.jpg')
+    this.load.image('hill', 'assets/images/hill.jpg')
     this.load.image('cave', 'assets/images/cave.jpg')
     this.load.image('village', 'assets/images/village.jpg')
     this.load.image('forest', 'assets/images/forest.jpg')
 
     this.load.image('door', 'assets/images/door.png')
+    this.load.image('tunnel', 'assets/images/tunnel.png')
     this.load.image('hillDoor', 'assets/images/mountainDoor.png')
     this.load.image('caveDoor', 'assets/images/caveDoor.png')
     this.load.image('villageDoor', 'assets/images/villageDoor.png')

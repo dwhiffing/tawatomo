@@ -15,7 +15,8 @@ export default class Character {
     })
   }
 
-  respond(text, shouldPrompt) {
+  respond(text, shouldPrompt, react = 1) {
+    this.react(react)
     if (shouldPrompt) {
       new Dialog(this.scene, text, this.data.sound, response => {
         if (!response) {
@@ -29,11 +30,19 @@ export default class Character {
         if (nextThingToSay) {
           this.respond(nextThingToSay, true)
         } else {
+          this.react(3)
           new Dialog(this.scene, '? ? ?', this.data.sound)
         }
       })
     } else {
       new Dialog(this.scene, text, this.data.sound)
     }
+  }
+
+  react(frame) {
+    this.sprite.setFrame(frame)
+    setTimeout(() => {
+      this.sprite.setFrame(0)
+    }, 2000)
   }
 }

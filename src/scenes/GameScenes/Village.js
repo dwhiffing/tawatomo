@@ -24,6 +24,7 @@ export default class extends GameScene {
     new Item(this, width / 2 - 200, height / 1.5, 'fire', () => {
       monster.respond('YOU NO HAVE HOT')
     })
+
     const monster = new Character(
       this,
       width / 2 + 200,
@@ -38,7 +39,7 @@ export default class extends GameScene {
       },
     )
 
-    this.showReturn('Forest')
+    this.showReturn('Forest', 'trees')
     this.showInventory()
   }
 }

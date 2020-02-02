@@ -15,10 +15,10 @@ Ship
   end of game puzzle?
 
 Hub
-  merchant -> shiny
+  weasel -> shiny
   has piece to repair ship
   has paths to village, cave, and hill
-  merchant talks to you about things you have encountered/collected?
+  weasel talks to you about things you have encountered/collected?
 
 village
   family looking for lost member -> lost member

@@ -26,9 +26,12 @@ export default class GameScene extends Phaser.Scene {
     sprite && sprite.destroy()
   }
 
-  showReturn(destination) {
+  showReturn(destination, decal) {
+    if (decal) {
+      this.add.sprite(80, this.game.config.height - 120, decal).setScale(0.3)
+    }
     this.add
-      .sprite(120, this.game.config.height - 120, 'return')
+      .sprite(200, this.game.config.height - 120, 'return')
       .setScale(0.5)
       .setInteractive()
       .on(
@@ -41,15 +44,16 @@ export default class GameScene extends Phaser.Scene {
       )
   }
 
-  showDoor(x, y, sprite, destination) {
+  showDoor(x, y, sprite, destination, callback, scale = 0.5) {
     this.add
       .sprite(x, y, sprite)
-      .setScale(0.5)
+      .setScale(scale)
       .setInteractive()
       .on(
         'pointerdown',
         (p, lx, ly, e) => {
           e.stopPropagation()
+          callback && callback()
           this.goto(destination)
         },
         this,
@@ -64,11 +68,12 @@ export default class GameScene extends Phaser.Scene {
     this.inventorySprites.forEach(sprite => sprite.destroy())
     this.inventorySprites = []
     this.data.values.inventory.forEach((item, index) => {
-      const sprite = this.add
-        .sprite(20 + index * 100, 70, item)
-        .setScale(0.25)
-        .setOrigin(0, 0.5)
+      const bgsprite = this.add
+        .sprite(100 + index * 100, 70, 'item-bg')
+        .setScale(1)
+      const sprite = this.add.sprite(100 + index * 100, 70, item).setScale(0.25)
       this.inventorySprites.push(sprite)
+      this.inventorySprites.push(bgsprite)
     })
   }
 
