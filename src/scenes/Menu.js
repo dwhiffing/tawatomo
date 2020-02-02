@@ -9,7 +9,7 @@ export default class extends Phaser.Scene {
     const { height, width } = this.game.config
     new Background(this, 'menu')
     this.add.sprite(width / 2, height / 2 - 300, 'title').setScale(1.5)
-    const music = this.sound.add('introMusic')
+    const music = this.sound.add('introMusic', { loop: true })
     const gameMusic = this.sound.add('gameMusic', { volume: 0.2, loop: true })
     music.play()
     const fire = this.add
