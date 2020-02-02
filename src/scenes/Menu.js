@@ -21,7 +21,7 @@ export default class extends Phaser.Scene {
     this.game.music = gameMusic
 
     const fire = this.add
-      .sprite(width / 2 - 180, height / 2 - 50, 'fire')
+      .sprite(width / 2 - 180, height / 2, 'fire')
       .setScale(0.15)
       .setAngle(-90)
     this.anims.create({
