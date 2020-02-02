@@ -12,14 +12,14 @@ export default class Dialog {
     this.scene.data.values.talking = true
     this.dialogSound = this.scene.sound.add(sound)
 
-    const x = 100
+    const x = 340
     const y = height - 250
     this.x = x
     this.y = y
-    const rectWidth = width - 200
-    const rectHeight = 200
     this.glyphs = []
-    this.rect = scene.add.rectangle(x, y, rectWidth, rectHeight, 0x000000)
+    this.shadow = scene.add.sprite(0, y - 100, 'shadow')
+    this.shadow.setOrigin(0, 0)
+    this.rect = scene.add.sprite(x, y, 'character-bg')
     this.rect.setOrigin(0, 0)
     this.textObject = scene.add.text(x + 50, y + 60, this.displayString, {
       fontFamily: 'Arial',
@@ -35,6 +35,7 @@ export default class Dialog {
       if (this.cursor === this.text.split(' ').length - 1) {
         this.rect.destroy()
         this.textObject.destroy()
+        this.shadow.destroy()
         this.glyphs.forEach(g => g.destroy())
         if (callback) {
           new Prompt(this.scene, response => {
@@ -59,8 +60,8 @@ export default class Dialog {
         this.textObject.setText(this.displayString)
       } else {
         const glyph = this.scene.add.sprite(
-          this.x + this.cursor * 100,
-          this.y,
+          this.x + this.cursor * 100 + 30,
+          this.y + 30,
           'glyph',
         )
         glyph.setFrame(WORDS.indexOf(nextText))

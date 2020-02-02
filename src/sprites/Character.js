@@ -6,6 +6,7 @@ export default class Character {
     this.data = data
     this.sprite = this.scene.add.image(x, y, image)
     this.sprite.setInteractive()
+    this.sprite.setOrigin(0.5, 1)
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
       event.stopPropagation()
       if (!this.scene.data.values.talking && data.text) {
@@ -28,7 +29,7 @@ export default class Character {
         if (nextThingToSay) {
           this.respond(nextThingToSay, true)
         } else {
-          new Dialog(this.scene, this.data.responses.default, this.data.sound)
+          new Dialog(this.scene, '? ? ?', this.data.sound)
         }
       })
     } else {

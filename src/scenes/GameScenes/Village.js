@@ -10,6 +10,7 @@ export default class extends GameScene {
   }
 
   create() {
+    const { height, width } = this.game.config
     const cookFood = () => {
       if (this.hasItem('fish')) {
         this.destroyItem('fish')
@@ -20,19 +21,24 @@ export default class extends GameScene {
     }
 
     new Background(this, 'village')
-    const monster = new Character(this, 1000, 400, 'monster', {
-      text: 'ME SMALL PERSON GO',
-      responses: {
-        ...GENERIC_RESPONSES,
-        'YOU HOT FOOD': cookFood,
-        default: 'ME SMALL PERSON GO',
-      },
-    })
-    new Item(this, 500, 400, 'fire', () => {
+    new Item(this, width / 2 - 200, height / 1.5, 'fire', () => {
       monster.respond('YOU NO HAVE HOT')
     })
+    const monster = new Character(
+      this,
+      width / 2 + 200,
+      height - 200,
+      'monster',
+      {
+        text: 'ME SMALL PERSON GO',
+        responses: {
+          ...GENERIC_RESPONSES,
+          'YOU HOT FOOD': cookFood,
+        },
+      },
+    )
 
-    this.input.on('pointerdown', () => this.goto('Forest'), this)
+    this.showReturn('Forest')
     this.showInventory()
   }
 }

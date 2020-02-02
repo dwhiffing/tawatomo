@@ -9,43 +9,50 @@ export default class extends GameScene {
     super({ key: 'Forest' })
   }
   create() {
-    this.exits = ['Ship', 'Village', 'Cave', 'Hill']
-
+    const { height, width } = this.game.config
     new Background(this, 'forest')
-    const merchant = new Character(this, 1000, 400, 'merchant', {
-      text: 'ME WANT WEALTH',
-      responses: {
-        ...GENERIC_RESPONSES,
-        'GIVE ME WEALTH': 'NO YOU GIVE ME WEALTH',
-        'YOU GOOD': 'ME NO GOOD',
-        default: 'ME WANT WEALTH',
+    const merchant = new Character(
+      this,
+      width - 500,
+      height - 100,
+      'merchant',
+      {
+        text: 'ME WANT WEALTH',
+        responses: {
+          ...GENERIC_RESPONSES,
+          'GIVE ME WEALTH': 'NO YOU GIVE ME WEALTH',
+          'YOU GOOD': 'ME NO GOOD',
+        },
       },
-    })
-    new Item(this, 500, 400, 'part', () => {
+    )
+
+    new Item(this, 500, height / 1.5, 'part', () => {
       merchant.respond('YOU NO HAVE THAT WEALTH ME')
     })
 
     this.showInventory()
+    this.showReturn('Ship')
+    this.showDoor(200, height / 2, 'villageDoor', 'Village')
+    this.showDoor(width / 2, height / 2, 'caveDoor', 'Cave')
+    this.showDoor(width - 200, height / 2, 'hillDoor', 'Hill')
 
-    this.input.on(
-      'pointerdown',
-      pointer => this.goto(this.getExitFromPointer(pointer)),
-      this,
-    )
+    // this.input.on(
+    //   'pointerdown',
+    //   pointer => this.goto(this.getExitFromPointer(pointer)),
+    //   this,
+    // )
   }
 
   getExitFromPointer(pointer) {
     const touchX = pointer.x
     const touchY = pointer.y
-    let exit = this.exits[0]
-    if (touchY > this.game.config.height / 1.3) {
-      exit = this.exits[0]
-    } else if (touchX < this.game.config.width / 3) {
-      exit = this.exits[1]
+    let exit
+    if (touchX < this.game.config.width / 3) {
+      exit = 'Village'
     } else if (touchX < (this.game.config.width / 3) * 2) {
-      exit = this.exits[2]
+      exit = 'Cave'
     } else {
-      exit = this.exits[3]
+      exit = 'Hill'
     }
     return exit
   }

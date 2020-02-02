@@ -1,8 +1,8 @@
 import { WORDS, IS_ENGLISH } from '../index'
 
-const NUM_PER_ROW = 6
-const X_ITEM_BUFFER = 125
-const Y_ITEM_BUFFER = 70
+const NUM_PER_ROW = 7
+const X_ITEM_BUFFER = 145
+const Y_ITEM_BUFFER = 145
 const PADDING = 20
 let displayText
 let responseGlyphs
@@ -14,22 +14,21 @@ export default class Prompt {
     const width = scene.game.config.width
     const height = scene.game.config.height
 
-    const x = 275
-    const y = height - 350
-    const rectWidth = width - 550
-    const rectHeight = 300
-    this.rect = scene.add.rectangle(x, y, rectWidth, rectHeight, 0x000000)
+    const x = 261
+    const y = height - 450
+    this.rect = scene.add.sprite(x, y, 'keyboard-bg')
     this.rect.setOrigin(0, 0)
+    this.shadow = scene.add.sprite(0, y - 180, 'shadow')
+    this.shadow.setOrigin(0, 0)
+    this.rect2 = scene.add.sprite(x + 38, y - 140, 'keyboard-input')
+    this.rect2.setOrigin(0, 0)
     this.textObjects = []
     this.callback = callback
     responseGlyphs = []
-    let numWords = 0
 
     this.submitButton = scene.add
-      .text(x + 670, y + 300, 'O', {
-        fontFamily: 'Arial',
-        fontSize: 20,
-      })
+      .sprite(width - 370, y + 210, 'glyph')
+      .setFrame(21)
       .setInteractive()
       .on('pointerdown', (p, lx, ly, event) => {
         event.stopPropagation()
@@ -37,10 +36,8 @@ export default class Prompt {
       })
 
     this.backButton = scene.add
-      .text(300, y + 300, 'X', {
-        fontFamily: 'Arial',
-        fontSize: 20,
-      })
+      .sprite(370, y + 210, 'glyph')
+      .setFrame(22)
       .setInteractive()
       .on('pointerdown', (p, lx, ly, event) => {
         event.stopPropagation()
@@ -71,13 +68,13 @@ export default class Prompt {
         )
       } else {
         text = scene.add.sprite(
-          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING,
+          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING + 170,
           y + Math.floor(index / NUM_PER_ROW) * Y_ITEM_BUFFER,
           'glyph',
         )
         text.setFrame(WORDS.indexOf(word))
         text.setOrigin(0, 0)
-        text.setScale(0.5)
+        text.setScale(0.6)
         text.word = word
       }
       this.textObjects[index] = text
@@ -92,11 +89,12 @@ export default class Prompt {
           displayText.setText(responseGlyphs.join(' '))
         } else {
           const responseGlyph = scene.add.sprite(
-            x + X_ITEM_BUFFER * responseGlyphs.length + 200,
-            y - 100,
-            'glyph-dark',
+            x + (X_ITEM_BUFFER - 20) * responseGlyphs.length + 115,
+            y - 130,
+            'glyph',
           )
           responseGlyph.setFrame(WORDS.indexOf(this.word))
+          responseGlyph.setScale(0.6)
           responseGlyph.word = this.word
           responseGlyph.setOrigin(0, 0)
           responseGlyphs.push(responseGlyph)
@@ -132,7 +130,14 @@ export default class Prompt {
 
   destroy() {
     this.textObjects
-      .concat([this.rect, displayText, this.backButton, this.submitButton])
+      .concat([
+        this.rect,
+        this.rect2,
+        this.shadow,
+        displayText,
+        this.backButton,
+        this.submitButton,
+      ])
       .forEach(text => {
         text.destroy()
       })

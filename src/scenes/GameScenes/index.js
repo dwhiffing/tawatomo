@@ -1,4 +1,3 @@
-export { default as CageScene } from './Cage'
 export { default as CaveScene } from './Cave'
 export { default as ForestScene } from './Forest'
 export { default as HillScene } from './Hill'

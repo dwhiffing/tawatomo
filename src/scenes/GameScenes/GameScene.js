@@ -26,6 +26,36 @@ export default class GameScene extends Phaser.Scene {
     sprite && sprite.destroy()
   }
 
+  showReturn(destination) {
+    this.add
+      .sprite(120, this.game.config.height - 120, 'return')
+      .setScale(0.5)
+      .setInteractive()
+      .on(
+        'pointerdown',
+        (p, lx, ly, e) => {
+          e.stopPropagation()
+          this.goto(destination)
+        },
+        this,
+      )
+  }
+
+  showDoor(x, y, sprite, destination) {
+    this.add
+      .sprite(x, y, sprite)
+      .setScale(0.5)
+      .setInteractive()
+      .on(
+        'pointerdown',
+        (p, lx, ly, e) => {
+          e.stopPropagation()
+          this.goto(destination)
+        },
+        this,
+      )
+  }
+
   hasUsedItem(item) {
     return this.data.values.usedItems.includes(item)
   }

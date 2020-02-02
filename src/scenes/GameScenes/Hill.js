@@ -9,20 +9,17 @@ export default class extends GameScene {
     super({ key: 'Hill' })
   }
   create() {
+    const { height, width } = this.game.config
     new Background(this, 'hill')
-    new Character(this, 1000, 400, 'orange', {
+    new Character(this, width - 400, height / 1.3, 'orange', {
       text: 'ME NO GO HOME',
       responses: {
         ...GENERIC_RESPONSES,
-        default: 'ME NO GO HOME',
       },
     })
 
-    const ladder = new Item(this, 500, 400, 'ladder', () => {
-      this.takeItem('ladder', ladder)
-    })
-
     this.input.on('pointerdown', () => this.goto('Forest'), this)
+    this.showReturn('Forest')
     this.showInventory()
   }
 }

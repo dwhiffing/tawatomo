@@ -9,38 +9,34 @@ export default class extends GameScene {
     super({ key: 'Cave' })
   }
   create() {
+    const { height, width } = this.game.config
     new Background(this, 'cave')
     const giveFood = () => {
       if (this.hasItem('cookedFish')) {
         this.destroyItem('cookedFish')
         return 'MANY YES'
       } else if (this.hasItem('fish')) {
-        return 'NO COLD. ME WANT HOT FOOD'
+        return 'NO COLD ME WANT HOT FOOD'
       }
       return 'ME WANT FOOD'
     }
-    const shark = new Character(this, 1000, 400, 'shark', {
+    const shark = new Character(this, width - 400, height - 300, 'shark', {
       text: 'ME NO HAVE FOOD ME WANT FOOD',
       sound: 'dialog2',
       responses: {
         ...GENERIC_RESPONSES,
         'YOU HAVE FOOD': giveFood,
         'ME GIVE FOOD': giveFood,
-        default: 'ME WANT FOOD',
       },
     })
 
-    new Item(this, 200, 200, 'lock', () => {
-      this.goto('Cage')
-    })
-
     if (!this.hasUsedItem('fish')) {
-      const fish = new Item(this, 500, 400, 'fish', () => {
+      const fish = new Item(this, 400, height / 2, 'fish', () => {
         this.takeItem('fish', fish)
       })
     }
 
-    this.input.on('pointerdown', () => this.goto('Forest'), this)
+    this.showReturn('Forest')
     this.showInventory()
   }
 }
