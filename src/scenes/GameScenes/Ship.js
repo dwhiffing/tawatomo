@@ -13,16 +13,20 @@ export default class extends GameScene {
       this.data.values.inventory = []
     }
     new Background(this, 'ship')
+    this.repairSound = this.sound.add('repairShip')
 
     const batterySlot = new Item(
       this,
-      width / 2 - 200,
-      height / 2,
+      width / 2 + 620,
+      height / 2 + 330,
       'batterySlot',
       () => {
-        if (this.hasItem('battery')) {
-          this.destroyItem('battery')
-          this.scene.start('Win')
+        if (this.hasItem('gear')) {
+          this.repairSound.play()
+          this.destroyItem('gear')
+          setTimeout(() => {
+            this.scene.start('Win')
+          }, 1000)
         }
       },
     )

@@ -12,21 +12,44 @@ export default class extends GameScene {
     const { height, width } = this.game.config
     new Background(this, 'forest')
 
-    this.showDoor(200, height / 2, 'villageDoor', 'Village')
-    this.showDoor(width / 2 - 100, height / 2, 'caveDoor', 'Cave')
-    this.showDoor(width - 200, height / 2, 'hillDoor', 'Hill')
-    let battery
-    if (!this.hasItem('battery')) {
-      battery = new Item(this, width / 2 - 200, height - 200, 'battery', () => {
+    this.angrySound = this.sound.add('angry')
+    this.showDoor(
+      250,
+      height / 2 + 100,
+      'villageDoor',
+      'Village',
+      () => {},
+      0.4,
+    )
+    this.showDoor(
+      width / 2 - 100,
+      height / 2 + 110,
+      'caveDoor',
+      'Cave',
+      () => {},
+      0.2,
+    )
+    this.showDoor(
+      width - 150,
+      height / 2 - 50,
+      'hillDoor',
+      'Hill',
+      () => {},
+      0.4,
+    )
+    let gear
+    if (!this.hasItem('gear')) {
+      gear = new Item(this, width / 2 - 200, height - 200, 'gear', () => {
+        this.angrySound.play()
         weasel.respond('YOU NO HAVE THAT WEALTH ME', false, 2)
       })
-      battery.sprite.setScale(0.5)
+      gear.sprite.setScale(0.7)
     }
 
     const giveWealth = () => {
       if (this.hasItem('shiny')) {
         this.destroyItem('shiny')
-        this.takeItem('battery', battery)
+        this.takeItem('gear', gear)
         return 'MANY YES HAVE THAT'
       }
       return 'YOU NO HAVE WEALTH'
@@ -35,7 +58,7 @@ export default class extends GameScene {
     const weasel = new Character(
       this,
       width / 2 + 300,
-      height - 150,
+      height - 100,
       'weasel',
       {
         text: 'ME WANT WEALTH',

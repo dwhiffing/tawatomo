@@ -19,6 +19,18 @@ export default class extends Phaser.Scene {
     this.load.audio('dialog', 'assets/audio/dialog.wav')
     this.load.audio('dialog2', 'assets/audio/dialog2.wav')
 
+    this.load.audio('eat', 'assets/audio/eat.wav')
+    this.load.audio('fish', 'assets/audio/fish.wav')
+    this.load.audio('angry3', 'assets/audio/angry3.wav')
+    this.load.audio('angry', 'assets/audio/angry.wav')
+    this.load.audio('cook', 'assets/audio/cook.wav')
+    this.load.audio('shinySound', 'assets/audio/shiny.wav')
+    this.load.audio('move', 'assets/audio/move.wav')
+    this.load.audio('good', 'assets/audio/good.wav')
+    this.load.audio('bad', 'assets/audio/bad.wav')
+    this.load.audio('turtleSound', 'assets/audio/turtle.wav')
+    this.load.audio('repairShip', 'assets/audio/repair-ship.wav')
+
     this.load.spritesheet('glyph', 'assets/images/glyphs.png', {
       frameWidth: 200,
       frameHeight: 200,
@@ -41,13 +53,20 @@ export default class extends Phaser.Scene {
       frameWidth: 1000,
       frameHeight: 1000,
     })
-    this.load.image('monster', 'assets/images/monster.png')
-    this.load.image('orange', 'assets/images/orange.png')
+    this.load.image('terry', 'assets/images/terry.png')
+    this.load.spritesheet('turtle', 'assets/images/turtle.png', {
+      frameWidth: 1000,
+      frameHeight: 1000,
+    })
+    this.load.image('turtleSmall', 'assets/images/turtleSmall.png')
 
     this.load.image('fish', 'assets/images/fish.png')
-    this.load.image('battery', 'assets/images/part.png')
+    this.load.image('gear', 'assets/images/gear.png')
     this.load.image('shiny', 'assets/images/shiny.png')
-    this.load.image('fire', 'assets/images/fire.png')
+    this.load.spritesheet('fire', 'assets/images/fire.png', {
+      frameWidth: 1000,
+      frameHeight: 1000,
+    })
     this.load.image('batterySlot', 'assets/images/batterySlot.png')
     this.load.image('cookedFish', 'assets/images/cooked-fish.png')
 
@@ -57,9 +76,9 @@ export default class extends Phaser.Scene {
     this.load.image('village', 'assets/images/village.jpg')
     this.load.image('forest', 'assets/images/forest.jpg')
 
-    this.load.image('door', 'assets/images/door.png')
     this.load.image('tunnel', 'assets/images/tunnel.png')
-    this.load.image('hillDoor', 'assets/images/mountainDoor.png')
+    this.load.image('smallTunnel', 'assets/images/small-tunnel.png')
+    this.load.image('hillDoor', 'assets/images/hillDoor.png')
     this.load.image('caveDoor', 'assets/images/caveDoor.png')
     this.load.image('villageDoor', 'assets/images/villageDoor.png')
 

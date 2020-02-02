@@ -17,12 +17,16 @@ export default class extends GameScene {
       'tunnel',
       'Tunnel',
       () => (this.data.values.cavePosition = 0),
+      0.4,
     )
+    this.fishSound = this.sound.add('fish')
+    this.eatSound = this.sound.add('eat')
 
     const giveFood = () => {
       if (this.hasItem('cookedFish')) {
         this.destroyItem('cookedFish')
-        return 'MANY YES'
+        this.eatSound.play()
+        return 'MANY YES HAVE WEALTH GO HOT BIG SMALL HOT BIG SMALL'
       } else if (this.hasItem('fish')) {
         return 'NO COLD ME WANT HOT FOOD'
       }
@@ -42,6 +46,7 @@ export default class extends GameScene {
     if (!this.hasUsedItem('fish')) {
       const fish = new Item(this, 400, height - 250, 'fish', () => {
         bat.respond('YOU GO GIVE ME HOT FOOD')
+        this.fishSound.play()
         this.takeItem('fish', fish)
       })
       fish.sprite.setScale(0.4)

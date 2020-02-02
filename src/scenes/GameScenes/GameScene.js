@@ -6,6 +6,7 @@ export default class GameScene extends Phaser.Scene {
   init(data) {
     this.data.values = data
     this.inventorySprites = []
+    this.moveSound = this.sound.add('move')
   }
 
   hasItem(item) {
@@ -26,9 +27,9 @@ export default class GameScene extends Phaser.Scene {
     sprite && sprite.destroy()
   }
 
-  showReturn(destination, decal) {
+  showReturn(destination, decal, scale = 0.3) {
     if (decal) {
-      this.add.sprite(80, this.game.config.height - 120, decal).setScale(0.3)
+      this.add.sprite(80, this.game.config.height - 120, decal).setScale(scale)
     }
     this.add
       .sprite(200, this.game.config.height - 120, 'return')
@@ -79,6 +80,7 @@ export default class GameScene extends Phaser.Scene {
 
   goto(place) {
     if (!this.data.values.talking) {
+      this.moveSound.play()
       this.scene.start(place, { ...this.data.values })
     }
   }

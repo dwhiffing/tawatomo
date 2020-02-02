@@ -15,59 +15,55 @@ export default class extends GameScene {
     new Background(this, 'cave')
     const index = this.data.values.cavePosition
 
+    this.goodSound = this.sound.add('good')
+    this.badSound = this.sound.add('bad')
+    this.shinySound = this.sound.add('shinySound')
+    const makeOnDoor = n => () => {
+      if (MAP[index] === n) {
+        this.goodSound.play()
+        this.data.values.cavePosition += 1
+      } else {
+        this.badSound.play()
+        this.data.values.cavePosition = 0
+      }
+    }
+
     if (index === MAP.length) {
       if (!this.hasUsedItem('shiny')) {
         const shiny = new Item(this, width / 2, height / 2, 'shiny', () => {
+          this.shinySound.play()
           this.takeItem('shiny', shiny)
         })
         shiny.sprite.setScale(0.7)
       }
     } else {
       this.showDoor(
-        width / 2,
-        height / 2 - 150,
+        width / 2 - 50,
+        height / 2 - 200,
         'tunnel',
         'Tunnel',
-        () => {
-          if (MAP[index] === 0) {
-            this.data.values.cavePosition += 1
-          } else {
-            this.data.values.cavePosition = 0
-          }
-        },
-        0.8,
+        makeOnDoor(0),
+        0.4,
       )
       this.showDoor(
         width / 2 - 700,
         height / 2 + 200,
         'tunnel',
         'Tunnel',
-        () => {
-          if (MAP[index] === 1) {
-            this.data.values.cavePosition += 1
-          } else {
-            this.data.values.cavePosition = 0
-          }
-        },
-        1.2,
+        makeOnDoor(1),
+        0.3,
       )
       this.showDoor(
         width / 2 + 700,
-        height / 2 + 170,
-        'tunnel',
+        height / 2 + 120,
+        'smallTunnel',
         'Tunnel',
-        () => {
-          if (MAP[index] === 2) {
-            this.data.values.cavePosition += 1
-          } else {
-            this.data.values.cavePosition = 0
-          }
-        },
-        0.5,
+        makeOnDoor(2),
+        1,
       )
     }
 
-    this.showReturn('Cave', 'caveDoor')
+    this.showReturn('Cave', 'caveDoor', 0.15)
     this.showInventory()
   }
 }

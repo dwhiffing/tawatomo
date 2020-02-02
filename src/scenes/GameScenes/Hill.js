@@ -11,14 +11,24 @@ export default class extends GameScene {
   create() {
     const { height, width } = this.game.config
     new Background(this, 'hill')
-    new Character(this, width - 400, height / 1.3, 'orange', {
-      text: 'ME NO GO HOME',
-      responses: {
-        ...GENERIC_RESPONSES,
-      },
-    })
+    let turtle
+    const goHome = () => {
+      this.takeItem('turtleSmall', turtle.sprite)
+      return 'ME GO YOU'
+    }
+    if (!this.hasUsedItem('turtleSmall')) {
+      turtle = new Character(this, width / 2 - 350, height / 2 - 60, 'turtle', {
+        text: 'ME NO GO HOME',
+        sound: 'turtleSound',
+        responses: {
+          'YOU GO HOME': 'ME NO GO HOME',
+          'YOU GO ME': goHome,
+          ...GENERIC_RESPONSES,
+        },
+      })
+      turtle.sprite.setScale(0.4)
+    }
 
-    this.input.on('pointerdown', () => this.goto('Forest'), this)
     this.showReturn('Forest', 'trees')
     this.showInventory()
   }
