@@ -1,17 +1,46 @@
+import Background from '../sprites/Background'
+
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Menu' })
   }
 
   create() {
-    this.add.text(100, 100, 'Menu')
+    const { height, width } = this.game.config
+    new Background(this, 'menu')
+    this.add.sprite(width / 2, height / 2 - 300, 'title').setScale(1.5)
+    const fire = this.add
+      .sprite(width / 2 - 180, height / 2, 'fire')
+      .setScale(0.15)
+      .setAngle(-90)
+    this.anims.create({
+      key: 'walk',
+      frames: this.anims.generateFrameNumbers('fire'),
+      frameRate: 10,
+      repeat: -1,
+    })
+    fire.play('walk')
+    this.add.sprite(width / 2, height / 2, 'shipLogo').setAngle(90)
 
-    this.input.once(
-      'pointerdown',
-      function() {
+    this.add
+      .sprite(150, height - 150, 'item-bg')
+      .setScale(1.5)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.start('Credits')
+      })
+    this.add
+      .sprite(150, height - 150, 'glyph')
+      .setFrame(1)
+      .setScale(0.5)
+
+    this.add
+      .sprite(width / 2, height - 150, 'keyboard-bg')
+      .setScale(0.4)
+      .setInteractive()
+      .on('pointerdown', () => {
         this.scene.start('Ship')
-      },
-      this,
-    )
+      })
+    this.add.sprite(width / 2, height - 150, 'glyph').setFrame(6)
   }
 }

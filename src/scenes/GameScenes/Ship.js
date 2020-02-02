@@ -31,7 +31,7 @@ export default class extends GameScene {
       },
     )
 
-    this.input.once('pointerdown', () => this.goto('Forest'), this)
     this.showInventory()
+    this.showReturn('Forest', 'trees')
   }
 }

@@ -18,6 +18,7 @@ export default class extends Phaser.Scene {
 
     this.load.audio('dialog', 'assets/audio/dialog.wav')
     this.load.audio('dialog2', 'assets/audio/dialog2.wav')
+    this.load.audio('terryDialog', 'assets/audio/terry.wav')
 
     this.load.audio('eat', 'assets/audio/eat.wav')
     this.load.audio('fish', 'assets/audio/fish.wav')
@@ -36,6 +37,7 @@ export default class extends Phaser.Scene {
       frameHeight: 200,
     })
 
+    this.load.image('title', 'assets/images/title.png')
     this.load.image('keyboard-bg', 'assets/images/keyboard-bg.png')
     this.load.image('item-bg', 'assets/images/item-bg.png')
     this.load.image('character-bg', 'assets/images/character-bg.png')
@@ -68,8 +70,9 @@ export default class extends Phaser.Scene {
       frameHeight: 1000,
     })
     this.load.image('batterySlot', 'assets/images/batterySlot.png')
-    this.load.image('cookedFish', 'assets/images/cooked-fish.png')
+    this.load.image('cookedFish', 'assets/images/cookedFish.png')
 
+    this.load.image('menu', 'assets/images/menu.jpg')
     this.load.image('ship', 'assets/images/ship.jpg')
     this.load.image('hill', 'assets/images/hill.jpg')
     this.load.image('cave', 'assets/images/cave.jpg')
@@ -84,7 +87,7 @@ export default class extends Phaser.Scene {
 
     this.load.on('complete', () => {
       progress.destroy()
-      this.scene.start('Ship')
+      this.scene.start('Menu')
     })
   }
 }
