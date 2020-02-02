@@ -50,9 +50,10 @@ export default class extends GameScene {
       if (this.hasItem('shiny')) {
         this.destroyItem('shiny')
         this.takeItem('gear', gear)
-        return 'BIG YES ! ! YOU HAVE WEALTH ! !'
+        weasel.respond('BIG YES ! ! YOU HAVE WEALTH ! !', false, 1)
+        return
       }
-      return 'YOU NO HAVE WEALTH'
+      weasel.respond('YOU NO HAVE WEALTH', false, 2)
     }
 
     const weasel = new Character(

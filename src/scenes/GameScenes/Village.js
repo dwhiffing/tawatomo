@@ -17,11 +17,13 @@ export default class extends GameScene {
       if (this.hasItem('turtleSmall')) {
         this.destroyItem('turtleSmall')
         this.data.values.savedTurtle = true
+        terryConfig.text = ['BIG YES YOU !', 1]
         const turt = new Character(
           this,
           width / 2 - 590,
           height / 2 + 380,
           'turtle',
+          {},
         )
         turt.sprite.setScale(0.5)
         terry.respond('BIG YES ! YOU HAVE HOT ! !', false, 1)
@@ -61,8 +63,10 @@ export default class extends GameScene {
     })
     fire.sprite.play('walk')
 
-    const terry = new Character(this, width / 2 + 300, height - 50, 'terry', {
-      text: ['ME SMALL PERSON GO HILL ! ME LOVE SMALL PERSON !', 2],
+    const terryConfig = {
+      text: this.data.values.savedTurtle
+        ? ['BIG YES YOU !', 1]
+        : ['ME SMALL PERSON GO HILL ! ME LOVE SMALL PERSON !', 2],
       sound: 'terryDialog',
       responses: {
         ...GENERIC_RESPONSES,
@@ -81,7 +85,15 @@ export default class extends GameScene {
         'WANT WEALTH': ['ME NO WANT WEALTH ! ME WANT LOVE PERSON', 2],
         'WANT FOOD': ['ME NO WANT FOOD ! ME WANT LOVE PERSON', 2],
       },
-    })
+    }
+
+    const terry = new Character(
+      this,
+      width / 2 + 300,
+      height - 50,
+      'terry',
+      terryConfig,
+    )
 
     if (this.data.values.savedTurtle) {
       const turt = new Character(
@@ -89,6 +101,7 @@ export default class extends GameScene {
         width / 2 - 590,
         height / 2 + 380,
         'turtle',
+        {},
       )
       turt.sprite.setScale(0.5)
     }

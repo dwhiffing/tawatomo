@@ -13,20 +13,22 @@ export default class extends GameScene {
     new Background(this, 'hill')
     let turtle
     const goHome = () => {
-      this.takeItem('turtleSmall', turtle.sprite)
-      turtle.respond('YES ! ME GO YOU !', false)
+      turtle.respond('YES ! ME GO YOU !', false, 1)
+      setTimeout(() => {
+        this.takeItem('turtleSmall', turtle.sprite)
+      }, 500)
     }
     if (!this.hasUsedItem('turtleSmall') && !this.data.values.savedTurtle) {
       turtle = new Character(this, width / 2 - 350, height / 2 + 50, 'turtle', {
-        text: 'ME NO GO HOME',
+        text: ['ME NO GO HOME', 2],
         sound: 'turtleSound',
         responses: {
-          HOME: 'ME NO GO HOME',
-          'GO HOME': 'ME NO GO HOME',
-          'YOU GO HOME': 'ME NO GO HOME',
-          'YOU GO ME': 'ME NO GO YOU',
-          WANT: 'ME NO WANT GO HOME',
-          'WANT HOME': 'ME NO WANT GO HOME',
+          HOME: ['ME NO GO HOME', 2],
+          'GO HOME': ['ME NO GO HOME', 2],
+          'YOU GO HOME': ['ME NO GO HOME', 2],
+          'YOU GO ME': ['ME NO GO YOU', 2],
+          WANT: ['ME NO WANT GO HOME', 2],
+          'WANT HOME': ['ME NO WANT GO HOME', 2],
           'PERSON LOVE YOU': goHome,
           'YOU LOVE PERSON': goHome,
           'YOU LOVE HOME': goHome,
