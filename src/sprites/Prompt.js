@@ -6,6 +6,7 @@ const Y_ITEM_BUFFER = 145
 const PADDING = 20
 let displayText
 let responseGlyphs
+let disableSound, submitSound, typeSound
 
 export default class Prompt {
   constructor(scene, callback = () => {}) {
@@ -25,6 +26,10 @@ export default class Prompt {
     this.textObjects = []
     this.callback = callback
     responseGlyphs = []
+
+    disableSound = this.scene.sound.add('disable')
+    submitSound = this.scene.sound.add('submitSound')
+    typeSound = this.scene.sound.add('typeSound')
 
     this.submitButton = scene.add
       .sprite(width - 370, y + 210, 'glyph')
@@ -81,9 +86,11 @@ export default class Prompt {
       text.setInteractive()
       text.on('pointerdown', function(pointer, localX, localY, event) {
         event.stopPropagation()
-        if (responseGlyphs.length === 3) {
+        if (text.alpha === 0.5 || responseGlyphs.length === 3) {
+          disableSound.play()
           return
         }
+        typeSound.play()
         if (IS_ENGLISH) {
           responseGlyphs.push(this._text)
           displayText.setText(responseGlyphs.join(' '))
@@ -93,6 +100,7 @@ export default class Prompt {
             y - 130,
             'glyph',
           )
+          text.setAlpha(0.5)
           responseGlyph.setFrame(WORDS.indexOf(this.word))
           responseGlyph.setScale(0.6)
           responseGlyph.word = this.word
@@ -108,7 +116,10 @@ export default class Prompt {
       this.submit()
       return
     }
+    disableSound.play()
     let thing = responseGlyphs.pop()
+    const text = this.textObjects.find(t => t.word === thing.word)
+    text.setAlpha(1)
     if (IS_ENGLISH) {
       displayText.setText(responseGlyphs.join(' '))
     } else {
@@ -122,6 +133,7 @@ export default class Prompt {
     } else {
       this.callback(responseGlyphs.map(r => r.word).join(' '))
     }
+    submitSound.play()
     if (!IS_ENGLISH) {
       responseGlyphs.forEach(r => r.destroy())
     }

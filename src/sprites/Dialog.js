@@ -73,7 +73,7 @@ export default class Dialog {
     }
     if (wordArray[this.cursor + 1]) {
       this.cursor += 1
-      setTimeout(this.updateText, 250)
+      setTimeout(this.updateText, 180)
     }
   }
 }

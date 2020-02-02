@@ -31,6 +31,10 @@ export default class extends Phaser.Scene {
     this.load.audio('bad', 'assets/audio/bad.wav')
     this.load.audio('turtleSound', 'assets/audio/turtle.wav')
     this.load.audio('repairShip', 'assets/audio/repair-ship.wav')
+    this.load.audio('shipDead', 'assets/audio/ship-dead.wav')
+    this.load.audio('disable', 'assets/audio/disablex.wav')
+    this.load.audio('submitSound', 'assets/audio/good.wav')
+    this.load.audio('typeSound', 'assets/audio/Hit_Hurt2.wav')
 
     this.load.spritesheet('glyph', 'assets/images/glyphs.png', {
       frameWidth: 200,
@@ -46,6 +50,10 @@ export default class extends Phaser.Scene {
     this.load.image('return', 'assets/images/return.png')
     this.load.image('shipLogo', 'assets/images/ship.png')
     this.load.image('trees', 'assets/images/trees.png')
+    this.load.spritesheet('ship-anim', 'assets/images/ship-anim.png', {
+      frameWidth: 600,
+      frameHeight: 600,
+    })
 
     this.load.spritesheet('bat', 'assets/images/bat.png', {
       frameWidth: 1000,
