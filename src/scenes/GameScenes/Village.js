@@ -62,7 +62,7 @@ export default class extends GameScene {
     })
     fire.sprite.play('walk')
 
-    const terry = new Character(this, width / 2 + 270, height - 200, 'terry', {
+    const terry = new Character(this, width / 2 + 270, height - 100, 'terry', {
       text: 'ME SMALL PERSON GO',
       sound: 'terryDialog',
       responses: {

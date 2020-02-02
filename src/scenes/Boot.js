@@ -55,7 +55,10 @@ export default class extends Phaser.Scene {
       frameWidth: 1000,
       frameHeight: 1000,
     })
-    this.load.image('terry', 'assets/images/terry.png')
+    this.load.spritesheet('terry', 'assets/images/terry.png', {
+      frameWidth: 1000,
+      frameHeight: 1000,
+    })
     this.load.spritesheet('turtle', 'assets/images/turtle.png', {
       frameWidth: 1000,
       frameHeight: 1000,
