@@ -4,6 +4,7 @@ Victory
 
 add fire to cave and randomize position of different exits
 Better dialogue
+keyboard only allows each symbol once
 
 animation and sounds for monitor on ship
 tweens for dialog/prompt
@@ -12,3 +13,5 @@ tweens for talking characters
 glow on fire
 
 more sound effects?
+keyboard sounds
+  type, backspace, submit, disabled

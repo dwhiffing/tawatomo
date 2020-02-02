@@ -40,6 +40,7 @@ export default class Dialog {
         if (callback) {
           new Prompt(this.scene, response => {
             this.scene.data.values.talking = false
+            response = response.replace(' !', '')
             callback(response)
           })
         } else {

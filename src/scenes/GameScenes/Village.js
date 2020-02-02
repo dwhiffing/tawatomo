@@ -26,34 +26,34 @@ export default class extends GameScene {
           'turtle',
         )
         turt.sprite.setScale(0.5)
-        return 'YES'
+        return ['BIG YES ! YOU HAVE HOT ! !', 1]
       }
 
-      return 'GIVE ME LITTLE PERSON'
+      return ['GIVE ME LITTLE PERSON', 2]
     }
 
     const cookFood = () => {
-      if (this.game.data.values.savedTurtle) {
+      if (this.data.values.savedTurtle) {
         if (this.hasItem('fish')) {
           this.destroyItem('fish')
           this.takeItem('cookedFish')
           this.cookSound.play()
-          return 'YES'
+          return ['YES ! ME HOT YOU FOOD', 1]
         }
-        this.angrySound.play()
-        return 'YOU HAVE NO FOOD'
+        return ['YOU HAVE NO FOOD', 2]
       } else {
-        this.angrySound.play()
-        return 'GIVE ME LITTLE PERSON'
+        return ['GIVE ME LITTLE PERSON', 2]
       }
     }
 
     new Background(this, 'village')
     const fire = new Item(this, width / 2 - 200, height / 1.5, 'fire', () => {
       this.angrySound.play()
-      terry.respond('YOU NO HAVE HOT')
+      terry.respond('ME HOT ! YOU NO HAVE !', false, 2)
     })
+
     fire.sprite.setScale(0.3)
+
     const anim = this.anims.create({
       key: 'walk',
       frames: this.anims.generateFrameNumbers('fire'),
@@ -62,15 +62,27 @@ export default class extends GameScene {
     })
     fire.sprite.play('walk')
 
-    const terry = new Character(this, width / 2 + 270, height - 100, 'terry', {
-      text: 'ME SMALL PERSON GO',
+    const terry = new Character(this, width / 2 + 300, height - 50, 'terry', {
+      text: ['ME SMALL PERSON GO HILL ! ME LOVE SMALL PERSON !', 2],
       sound: 'terryDialog',
       responses: {
         ...GENERIC_RESPONSES,
         'YOU HOT FOOD': cookFood,
         'YOU HAVE PERSON': giveTurtle,
+        'ME GIVE PERSON': giveTurtle,
+        'ME GO PERSON': ['YES ! ME LOVE SMALL PERSON ! GO HILL !', 2],
+        'GO HILL': ['ME NO GO ! YOU GO !', 2],
+        'YOU GO HILL': ['ME NO GO ! YOU GO !', 2],
+        HILL: ['YES HILL ! ME LOVE PERSON GO HILL !', 1],
+        'ME GO HILL': ['YES ! ! YOU GO HILL ! HAVE SMALL PERSON', 1],
+        WEALTH: ['ME NO WANT WEALTH ! ME WANT LOVE PERSON', 2],
+        WANT: ['ME WANT LOVE PERSON ! YOU GO HILL !', 2],
+        'WANT WEALTH': ['ME NO WANT WEALTH ! ME WANT LOVE PERSON', 2],
+        'WANT FOOD': ['ME NO WANT FOOD ! ME WANT LOVE PERSON', 2],
       },
     })
+
+    terry.sprite.setScale(0.8)
 
     this.showReturn('Forest', 'trees')
     this.showInventory()

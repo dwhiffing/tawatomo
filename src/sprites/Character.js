@@ -7,6 +7,10 @@ export default class Character {
     this.sprite = this.scene.add.image(x, y, image)
     this.sprite.setInteractive()
     this.sprite.setOrigin(0.5, 1)
+    this.angrySound = this.scene.sound.add('angry')
+    this.happySound = this.scene.sound.add('good')
+    this.confusedSound = this.scene.sound.add('bad')
+
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
       event.stopPropagation()
       if (!this.scene.data.values.talking && data.text) {
@@ -16,6 +20,13 @@ export default class Character {
   }
 
   respond(text, shouldPrompt, react = 1) {
+    if (typeof text === 'function') {
+      text = text()
+    }
+    if (Array.isArray(text)) {
+      react = text[1]
+      text = text[0]
+    }
     this.react(react)
     if (shouldPrompt) {
       new Dialog(this.scene, text, this.data.sound, response => {
@@ -24,9 +35,6 @@ export default class Character {
         }
 
         let nextThingToSay = this.data.responses[response]
-        if (typeof nextThingToSay === 'function') {
-          nextThingToSay = nextThingToSay()
-        }
         if (nextThingToSay) {
           this.respond(nextThingToSay, true)
         } else {
@@ -40,6 +48,15 @@ export default class Character {
   }
 
   react(frame) {
+    if (frame === 1) {
+      this.happySound.play()
+    }
+    if (frame === 2) {
+      this.angrySound.play()
+    }
+    if (frame === 3) {
+      this.confusedSound.play()
+    }
     this.sprite.setFrame(frame)
     setTimeout(() => {
       this.sprite.setFrame(0)

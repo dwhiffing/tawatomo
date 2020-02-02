@@ -45,14 +45,25 @@ export default class extends GameScene {
         makeOnDoor(0),
         0.4,
       )
+
       this.showDoor(
         width / 2 - 700,
-        height / 2 + 200,
+        height / 2 + 120,
         'tunnel',
         'Tunnel',
         makeOnDoor(1),
         0.3,
       )
+      const fire = this.add
+        .sprite(width / 2 - 500, height / 2 + 150, 'fire')
+        .setScale(0.2)
+      this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('fire'),
+        frameRate: 10,
+        repeat: -1,
+      })
+      fire.play('walk')
       this.showDoor(
         width / 2 + 700,
         height / 2 + 120,

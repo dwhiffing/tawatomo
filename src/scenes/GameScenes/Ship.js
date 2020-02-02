@@ -25,7 +25,7 @@ export default class extends GameScene {
           this.repairSound.play()
           this.destroyItem('gear')
           setTimeout(() => {
-            this.scene.start('Win')
+            this.scene.start('Menu')
           }, 1000)
         }
       },

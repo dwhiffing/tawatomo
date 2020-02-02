@@ -14,15 +14,22 @@ export default class extends GameScene {
     let turtle
     const goHome = () => {
       this.takeItem('turtleSmall', turtle.sprite)
-      return 'ME GO YOU'
+      return 'YES ! ME GO YOU !'
     }
     if (!this.hasUsedItem('turtleSmall')) {
       turtle = new Character(this, width / 2 - 350, height / 2 - 60, 'turtle', {
         text: 'ME NO GO HOME',
         sound: 'turtleSound',
         responses: {
+          HOME: 'ME NO GO HOME',
+          'GO HOME': 'ME NO GO HOME',
           'YOU GO HOME': 'ME NO GO HOME',
-          'YOU GO ME': goHome,
+          'YOU GO ME': 'ME NO GO YOU',
+          WANT: 'ME NO WANT GO HOME',
+          'WANT HOME': 'ME NO WANT GO HOME',
+          'PERSON LOVE YOU': goHome,
+          'YOU LOVE PERSON': goHome,
+          'YOU LOVE HOME': goHome,
           ...GENERIC_RESPONSES,
         },
       })

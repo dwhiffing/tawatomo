@@ -10,9 +10,9 @@ export default class extends Phaser.Scene {
     new Background(this, 'menu')
     this.add.sprite(width / 2, height / 2 - 300, 'title').setScale(1.5)
     this.add.text(
-      width / 2 - 150,
+      width / 2 - 300,
       height / 2 - 100,
-      'Daniel Whiffing\nSteph Braithwaite\nSam Braithwaite\nPeter Li\nAshley Dadoun',
+      'Daniel Whiffing - Programmer\nSteph Braithwaite - Artist\nSam Braithwaite  - Artist\nPeter Li - Artist\nAshley Dadoun - Artist',
       { align: 'center', fontSize: 34 },
     )
 
