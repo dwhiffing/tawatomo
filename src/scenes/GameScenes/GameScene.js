@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
       .on(
         'pointerdown',
         (p, lx, ly, e) => {
-          e.stopPropagation()
+          // e.stopPropagation()
           this.goto(destination)
         },
         this,
@@ -64,7 +64,7 @@ export default class GameScene extends Phaser.Scene {
       .on(
         'pointerdown',
         (p, lx, ly, e) => {
-          e.stopPropagation()
+          // e.stopPropagation()
           callback && callback()
           this.goto(destination)
         },

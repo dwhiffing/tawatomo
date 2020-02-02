@@ -12,8 +12,8 @@ export default class Character {
     this.confusedSound = this.scene.sound.add('bad')
 
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
-      event.stopPropagation()
-      if (!this.scene.data.values.talking && data.text) {
+      // event.stopPropagation()
+      if (!this.scene.data.values.talking && data && data.text) {
         this.respond(data.text, true)
       }
     })
@@ -22,6 +22,9 @@ export default class Character {
   respond(text, shouldPrompt, react = 1) {
     if (typeof text === 'function') {
       text = text()
+    }
+    if (!text) {
+      return
     }
     if (Array.isArray(text)) {
       react = text[1]

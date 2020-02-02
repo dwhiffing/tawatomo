@@ -20,10 +20,10 @@ export default class Prompt {
     const y = height - 450
     this.x = x
     this.y = y
-    this.rect = scene.add.sprite(x, height + 200, 'keyboard-bg')
-    this.rect.setOrigin(0, 0)
     this.shadow = scene.add.sprite(0, height + 500, 'shadow')
     this.shadow.setOrigin(0, 0)
+    this.rect = scene.add.sprite(x, height + 200, 'keyboard-bg')
+    this.rect.setOrigin(0, 0)
     this.rect2 = scene.add.sprite(x + 38, height + 200, 'keyboard-input')
     this.rect2.setOrigin(0, 0)
     this.textObjects = []
@@ -88,7 +88,7 @@ export default class Prompt {
     } else {
       this.callback(responseGlyphs.map(r => r.word).join(' '))
     }
-    submitSound.play()
+
     if (!IS_ENGLISH) {
       responseGlyphs.forEach(r => r.destroy())
     }
@@ -96,18 +96,48 @@ export default class Prompt {
   }
 
   destroy() {
-    this.textObjects
-      .concat([
-        this.rect,
-        this.rect2,
-        this.shadow,
-        displayText,
-        this.backButton,
-        this.submitButton,
-      ])
-      .forEach(text => {
-        text.destroy()
-      })
+    const height = this.scene.game.config.height
+    this.scene.tweens.add({
+      targets: [this.rect],
+      y: height,
+      duration: 250,
+      ease: 'Power2',
+    })
+    this.scene.tweens.add({
+      targets: [this.rect2],
+      y: height,
+      duration: 250,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: [this.shadow],
+      y: height,
+      duration: 250,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: this.textObjects.concat([this.backButton, this.submitButton]),
+      alpha: 0,
+      duration: 250,
+      ease: 'Power2',
+    })
+
+    setTimeout(() => {
+      this.textObjects
+        .concat([
+          this.rect,
+          this.rect2,
+          this.shadow,
+          displayText,
+          this.backButton,
+          this.submitButton,
+        ])
+        .forEach(text => {
+          text.destroy()
+        })
+    }, 250)
   }
 
   drawKeyboard() {
@@ -147,7 +177,7 @@ export default class Prompt {
       this.textObjects[index] = text
       text.setInteractive()
       text.on('pointerdown', function(pointer, localX, localY, event) {
-        event.stopPropagation()
+        // event.stopPropagation()
         if (text.alpha === 0.5 || responseGlyphs.length === 3) {
           disableSound.play()
           return
@@ -178,7 +208,7 @@ export default class Prompt {
       .setAlpha(0)
       .setInteractive()
       .on('pointerdown', (p, lx, ly, event) => {
-        event.stopPropagation()
+        // event.stopPropagation()
         this.submit()
       })
 
@@ -188,7 +218,7 @@ export default class Prompt {
       .setFrame(22)
       .setInteractive()
       .on('pointerdown', (p, lx, ly, event) => {
-        event.stopPropagation()
+        // event.stopPropagation()
         this.back()
       })
 

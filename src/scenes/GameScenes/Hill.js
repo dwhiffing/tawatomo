@@ -14,10 +14,10 @@ export default class extends GameScene {
     let turtle
     const goHome = () => {
       this.takeItem('turtleSmall', turtle.sprite)
-      return 'YES ! ME GO YOU !'
+      turtle.respond('YES ! ME GO YOU !', false)
     }
-    if (!this.hasUsedItem('turtleSmall')) {
-      turtle = new Character(this, width / 2 - 350, height / 2 - 60, 'turtle', {
+    if (!this.hasUsedItem('turtleSmall') && !this.data.values.savedTurtle) {
+      turtle = new Character(this, width / 2 - 350, height / 2 + 50, 'turtle', {
         text: 'ME NO GO HOME',
         sound: 'turtleSound',
         responses: {
@@ -33,7 +33,7 @@ export default class extends GameScene {
           ...GENERIC_RESPONSES,
         },
       })
-      turtle.sprite.setScale(0.4)
+      turtle.sprite.setScale(0.7)
     }
 
     this.showReturn('Forest', 'trees')

@@ -40,14 +40,21 @@ export default class extends GameScene {
         this.data.values.fedBat = true
         this.destroyItem('cookedFish')
         this.eatSound.play()
-        return ['YOU GO COLD HILL ! HOT BIG SMALL HOT BIG SMALL !', 1]
+        batConfig.text = ['YOU GO COLD HILL ! HOT BIG SMALL HOT BIG SMALL !', 1]
+        bat.respond(
+          'YOU GO COLD HILL ! BIG HOT SMALL BIG HOT SMALL !',
+          false,
+          1,
+        )
+        return
       } else if (this.hasItem('fish')) {
         this.angrySound.play()
-        return ['NO COLD ! ME WANT HOT FOOD !', 2]
+        bat.respond('NO COLD ! ME WANT HOT FOOD !', false, 2)
+        return
       }
-      return ['ME WANT FOOD !', 2]
+      bat.respond('ME WANT FOOD', false, 2)
     }
-    const bat = new Character(this, width / 2 + 400, height - 350, 'bat', {
+    const batConfig = {
       text: this.data.values.fedBat
         ? ['YOU GO COLD HILL ! HOT BIG SMALL HOT BIG SMALL !', 1]
         : ['ME WANT FOOD !', 2],
@@ -82,12 +89,19 @@ export default class extends GameScene {
         'ME GIVE FOOD': giveFood,
         'GIVE FOOD': giveFood,
       },
-    })
+    }
+    const bat = new Character(
+      this,
+      width / 2 + 400,
+      height - 350,
+      'bat',
+      batConfig,
+    )
     bat.sprite.setScale(0.6)
 
     if (!this.hasUsedItem('fish')) {
       const fish = new Item(this, 400, height - 250, 'fish', () => {
-        bat.respond('YOU GO HOT FOOD !')
+        bat.respond('YOU GO HOT FOOD !', false)
         this.fishSound.play()
         this.takeItem('fish', fish)
       })

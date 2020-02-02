@@ -11,6 +11,7 @@ export default class Dialog {
     const height = scene.game.config.height
     this.scene.data.values.talking = true
     this.dialogSound = this.scene.sound.add(sound)
+    this.callback = callback
 
     const x = 340
     const y = height - 250
@@ -27,23 +28,6 @@ export default class Dialog {
       align: 'center',
     })
     this.updateText = this.updateText.bind(this)
-    this.rect.setInteractive()
-    this.rect.on('pointerdown', (pointer, localX, localY, event) => {
-      event.stopPropagation()
-
-      if (this.cursor === this.text.split(' ').length - 1) {
-        this.destroy()
-        if (callback) {
-          new Prompt(this.scene, response => {
-            this.scene.data.values.talking = false
-            response = response.replace(' !', '')
-            callback(response)
-          })
-        } else {
-          this.scene.data.values.talking = false
-        }
-      }
-    })
 
     this.scene.tweens.add({
       targets: [this.rect],
@@ -84,7 +68,28 @@ export default class Dialog {
     }
     if (wordArray[this.cursor + 1]) {
       this.cursor += 1
-      setTimeout(this.updateText, 180)
+      setTimeout(this.updateText, 120)
+    } else {
+      if (this.cursor === this.text.split(' ').length - 1) {
+        setTimeout(() => {
+          this.scene.input.once(
+            'pointerdown',
+            (pointer, localX, localY, event) => {
+              if (this.callback) {
+                new Prompt(this.scene, response => {
+                  this.scene.data.values.talking = false
+                  response = response.replace(' !', '')
+                  this.callback(response)
+                })
+              } else {
+                this.scene.data.values.talking = false
+              }
+              console.log(this.scene.data.values)
+              this.destroy()
+            },
+          )
+        }, 500)
+      }
     }
   }
 

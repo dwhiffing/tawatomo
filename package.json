@@ -4,7 +4,7 @@
   "description": "A Point and Click game",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js; cp -r assets dist/",
+    "build": "webpack --config webpack.prod.js; cp -r assets dist/; cp favicon.png dist/",
     "start": "webpack-dev-server --config webpack.base.js --open",
     "deploy": "gh-pages -d dist"
   },

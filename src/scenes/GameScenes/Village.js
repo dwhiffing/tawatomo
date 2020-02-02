@@ -16,19 +16,18 @@ export default class extends GameScene {
     const giveTurtle = () => {
       if (this.hasItem('turtleSmall')) {
         this.destroyItem('turtleSmall')
-        // TODO: Save turtle sound
         this.data.values.savedTurtle = true
         const turt = new Character(
           this,
           width / 2 - 590,
-          height / 2 - 180,
+          height / 2 + 380,
           'turtle',
         )
         turt.sprite.setScale(0.5)
-        return ['BIG YES ! YOU HAVE HOT ! !', 1]
+        terry.respond('BIG YES ! YOU HAVE HOT ! !', false, 1)
+        return
       }
-
-      return ['GIVE ME LITTLE PERSON', 2]
+      terry.respond('GIVE ME LITTLE PERSON', false, 2)
     }
 
     const cookFood = () => {
@@ -37,11 +36,13 @@ export default class extends GameScene {
           this.destroyItem('fish')
           this.takeItem('cookedFish')
           this.cookSound.play()
-          return ['YES ! ME HOT YOU FOOD', 1]
+          terry.respond('YES ! ME HOT YOU FOOD', false, 1)
+          return
         }
-        return ['YOU HAVE NO FOOD', 2]
+        terry.respond('YOU HAVE NO FOOD', false, 2)
+        return
       } else {
-        return ['GIVE ME LITTLE PERSON', 2]
+        terry.respond('GIVE ME SMALL PERSON', false, 2)
       }
     }
 
@@ -66,6 +67,8 @@ export default class extends GameScene {
       responses: {
         ...GENERIC_RESPONSES,
         'YOU HOT FOOD': cookFood,
+        'ME HOT FOOD': cookFood,
+        'HOT FOOD': cookFood,
         'YOU HAVE PERSON': giveTurtle,
         'ME GIVE PERSON': giveTurtle,
         'ME GO PERSON': ['YES ! ME LOVE SMALL PERSON ! GO HILL !', 2],
@@ -79,6 +82,16 @@ export default class extends GameScene {
         'WANT FOOD': ['ME NO WANT FOOD ! ME WANT LOVE PERSON', 2],
       },
     })
+
+    if (this.data.values.savedTurtle) {
+      const turt = new Character(
+        this,
+        width / 2 - 590,
+        height / 2 + 380,
+        'turtle',
+      )
+      turt.sprite.setScale(0.5)
+    }
 
     terry.sprite.setScale(0.8)
 

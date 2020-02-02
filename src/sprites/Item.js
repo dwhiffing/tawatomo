@@ -5,7 +5,7 @@ export default class Item {
     this.name = image
     this.sprite.setInteractive()
     this.sprite.on('pointerdown', (pointer, localX, localY, event) => {
-      event.stopPropagation()
+      // event.stopPropagation()
       if (!this.scene.data.values.talking) {
         callback()
       }
