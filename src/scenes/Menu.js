@@ -1,8 +1,14 @@
 import Background from '../sprites/Background'
-
+let win
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Menu' })
+  }
+
+  init(data) {
+    if (data.win) {
+      win = true
+    }
   }
 
   create() {
@@ -13,8 +19,9 @@ export default class extends Phaser.Scene {
     const gameMusic = this.sound.add('gameMusic', { volume: 0.2, loop: true })
     music.play()
     this.game.music = gameMusic
+
     const fire = this.add
-      .sprite(width / 2 - 180, height / 2, 'fire')
+      .sprite(width / 2 - 180, height / 2 - 50, 'fire')
       .setScale(0.15)
       .setAngle(-90)
     this.anims.create({
@@ -37,16 +44,26 @@ export default class extends Phaser.Scene {
       .sprite(150, height - 150, 'glyph')
       .setFrame(1)
       .setScale(0.5)
-
-    this.add
-      .sprite(width / 2, height - 150, 'keyboard-bg')
-      .setScale(0.4)
-      .setInteractive()
-      .on('pointerdown', () => {
-        music.stop()
-        gameMusic.play()
-        this.scene.start('Ship')
-      })
-    this.add.sprite(width / 2, height - 150, 'glyph').setFrame(6)
+    if (win) {
+      this.add
+        .sprite(width / 2, height - 150, 'you-win')
+        .setInteractive()
+        .on('pointerdown', () => {
+          music.stop()
+          gameMusic.play()
+          this.scene.start('Ship')
+        })
+    } else {
+      this.add
+        .sprite(width / 2, height - 150, 'keyboard-bg')
+        .setScale(0.4)
+        .setInteractive()
+        .on('pointerdown', () => {
+          music.stop()
+          gameMusic.play()
+          this.scene.start('Ship')
+        })
+      this.add.sprite(width / 2, height - 150, 'glyph').setFrame(6)
+    }
   }
 }

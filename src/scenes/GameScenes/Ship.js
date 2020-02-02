@@ -64,7 +64,7 @@ export default class extends GameScene {
           this.destroyItem('gear')
           this.game.music.stop()
           setTimeout(() => {
-            this.scene.start('Menu')
+            this.scene.start('Menu', { win: true })
           }, 1000)
         }
       },

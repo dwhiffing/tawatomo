@@ -44,6 +44,7 @@ export default class extends Phaser.Scene {
     })
 
     this.load.image('title', 'assets/images/title.png')
+    this.load.image('you-win', 'assets/images/you-win.png')
     this.load.image('keyboard-bg', 'assets/images/keyboard-bg.png')
     this.load.image('item-bg', 'assets/images/item-bg.png')
     this.load.image('character-bg', 'assets/images/character-bg.png')
