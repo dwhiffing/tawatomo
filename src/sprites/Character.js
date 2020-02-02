@@ -48,6 +48,14 @@ export default class Character {
   }
 
   react(frame) {
+    this.scene.tweens.add({
+      targets: this.sprite,
+      scale: this.sprite.scale * 1.04,
+      duration: 150,
+      yoyo: true,
+      repeat: 1,
+      easing: 'BounceInOut',
+    })
     if (frame === 1) {
       this.happySound.play()
     }

@@ -76,5 +76,6 @@ export default class extends GameScene {
 
     this.showReturn('Cave', 'caveDoor', 0.15)
     this.showInventory()
+    super.create()
   }
 }

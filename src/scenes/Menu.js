@@ -9,6 +9,9 @@ export default class extends Phaser.Scene {
     const { height, width } = this.game.config
     new Background(this, 'menu')
     this.add.sprite(width / 2, height / 2 - 300, 'title').setScale(1.5)
+    const music = this.sound.add('introMusic')
+    const gameMusic = this.sound.add('gameMusic', { volume: 0.2, loop: true })
+    music.play()
     const fire = this.add
       .sprite(width / 2 - 180, height / 2, 'fire')
       .setScale(0.15)
@@ -39,6 +42,8 @@ export default class extends Phaser.Scene {
       .setScale(0.4)
       .setInteractive()
       .on('pointerdown', () => {
+        music.stop()
+        gameMusic.play()
         this.scene.start('Ship')
       })
     this.add.sprite(width / 2, height - 150, 'glyph').setFrame(6)

@@ -12,16 +12,19 @@ export default class Prompt {
   constructor(scene, callback = () => {}) {
     this.scene = scene
     this.cursor = 0
-    const width = scene.game.config.width
+    this.width = scene.game.config.width
     const height = scene.game.config.height
+    this.height = height
 
     const x = 261
     const y = height - 450
-    this.rect = scene.add.sprite(x, y, 'keyboard-bg')
+    this.x = x
+    this.y = y
+    this.rect = scene.add.sprite(x, height + 200, 'keyboard-bg')
     this.rect.setOrigin(0, 0)
-    this.shadow = scene.add.sprite(0, y - 180, 'shadow')
+    this.shadow = scene.add.sprite(0, height + 500, 'shadow')
     this.shadow.setOrigin(0, 0)
-    this.rect2 = scene.add.sprite(x + 38, y - 140, 'keyboard-input')
+    this.rect2 = scene.add.sprite(x + 38, height + 200, 'keyboard-input')
     this.rect2.setOrigin(0, 0)
     this.textObjects = []
     this.callback = callback
@@ -31,24 +34,6 @@ export default class Prompt {
     submitSound = this.scene.sound.add('submitSound')
     typeSound = this.scene.sound.add('typeSound')
 
-    this.submitButton = scene.add
-      .sprite(width - 370, y + 210, 'glyph')
-      .setFrame(21)
-      .setInteractive()
-      .on('pointerdown', (p, lx, ly, event) => {
-        event.stopPropagation()
-        this.submit()
-      })
-
-    this.backButton = scene.add
-      .sprite(370, y + 210, 'glyph')
-      .setFrame(22)
-      .setInteractive()
-      .on('pointerdown', (p, lx, ly, event) => {
-        event.stopPropagation()
-        this.back()
-      })
-
     displayText = scene.add.text(x, y - 100, '', {
       fontFamily: 'Arial',
       fontSize: 60,
@@ -56,58 +41,28 @@ export default class Prompt {
     })
 
     this.destroy = this.destroy.bind(this)
+    this.drawKeyboard = this.drawKeyboard.bind(this)
+    setTimeout(this.drawKeyboard, 500)
 
-    WORDS.forEach((word, index) => {
-      let text
-      if (IS_ENGLISH) {
-        text = scene.add.text(
-          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING,
-          y + Math.floor(index / NUM_PER_ROW) * Y_ITEM_BUFFER + PADDING,
-          word,
-          {
-            fontFamily: 'Arial',
-            fontSize: 30,
-            fixedWidth: X_ITEM_BUFFER,
-            fixedHeight: 30,
-          },
-        )
-      } else {
-        text = scene.add.sprite(
-          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING + 170,
-          y + Math.floor(index / NUM_PER_ROW) * Y_ITEM_BUFFER,
-          'glyph',
-        )
-        text.setFrame(WORDS.indexOf(word))
-        text.setOrigin(0, 0)
-        text.setScale(0.6)
-        text.word = word
-      }
-      this.textObjects[index] = text
-      text.setInteractive()
-      text.on('pointerdown', function(pointer, localX, localY, event) {
-        event.stopPropagation()
-        if (text.alpha === 0.5 || responseGlyphs.length === 3) {
-          disableSound.play()
-          return
-        }
-        typeSound.play()
-        if (IS_ENGLISH) {
-          responseGlyphs.push(this._text)
-          displayText.setText(responseGlyphs.join(' '))
-        } else {
-          const responseGlyph = scene.add.sprite(
-            x + (X_ITEM_BUFFER - 20) * responseGlyphs.length + 115,
-            y - 130,
-            'glyph',
-          )
-          text.setAlpha(0.5)
-          responseGlyph.setFrame(WORDS.indexOf(this.word))
-          responseGlyph.setScale(0.6)
-          responseGlyph.word = this.word
-          responseGlyph.setOrigin(0, 0)
-          responseGlyphs.push(responseGlyph)
-        }
-      })
+    this.scene.tweens.add({
+      targets: [this.rect],
+      y: y,
+      duration: 500,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: [this.shadow],
+      y: y - 100,
+      duration: 500,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: [this.rect2],
+      y: y - 140,
+      duration: 500,
+      ease: 'Power2',
     })
   }
 
@@ -153,5 +108,95 @@ export default class Prompt {
       .forEach(text => {
         text.destroy()
       })
+  }
+
+  drawKeyboard() {
+    const { x, y, width, height } = this
+    WORDS.forEach((word, index) => {
+      let text
+      if (IS_ENGLISH) {
+        text = this.scene.add.text(
+          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING,
+          y + Math.floor(index / NUM_PER_ROW) * Y_ITEM_BUFFER + PADDING,
+          word,
+          {
+            fontFamily: 'Arial',
+            fontSize: 30,
+            fixedWidth: X_ITEM_BUFFER,
+            fixedHeight: 30,
+          },
+        )
+      } else {
+        text = this.scene.add.sprite(
+          x + X_ITEM_BUFFER * (index % NUM_PER_ROW) + PADDING + 170,
+          y + Math.floor(index / NUM_PER_ROW) * Y_ITEM_BUFFER,
+          'glyph',
+        )
+        text.setFrame(WORDS.indexOf(word))
+        text.setAlpha(0)
+        text.setOrigin(0, 0)
+        text.setScale(0.6)
+        text.word = word
+        this.scene.tweens.add({
+          targets: text,
+          alpha: 1,
+          duration: 100,
+          delay: index * 20,
+        })
+      }
+      this.textObjects[index] = text
+      text.setInteractive()
+      text.on('pointerdown', function(pointer, localX, localY, event) {
+        event.stopPropagation()
+        if (text.alpha === 0.5 || responseGlyphs.length === 3) {
+          disableSound.play()
+          return
+        }
+        typeSound.play()
+        if (IS_ENGLISH) {
+          responseGlyphs.push(this._text)
+          displayText.setText(responseGlyphs.join(' '))
+        } else {
+          const responseGlyph = this.scene.add.sprite(
+            x + (X_ITEM_BUFFER - 20) * responseGlyphs.length + 115,
+            y - 130,
+            'glyph',
+          )
+          text.setAlpha(0.5)
+          responseGlyph.setFrame(WORDS.indexOf(this.word))
+          responseGlyph.setScale(0.6)
+          responseGlyph.word = this.word
+          responseGlyph.setOrigin(0, 0)
+          responseGlyphs.push(responseGlyph)
+        }
+      })
+    })
+
+    this.submitButton = this.scene.add
+      .sprite(width - 370, y + 210, 'glyph')
+      .setFrame(21)
+      .setAlpha(0)
+      .setInteractive()
+      .on('pointerdown', (p, lx, ly, event) => {
+        event.stopPropagation()
+        this.submit()
+      })
+
+    this.backButton = this.scene.add
+      .sprite(370, y + 210, 'glyph')
+      .setAlpha(0)
+      .setFrame(22)
+      .setInteractive()
+      .on('pointerdown', (p, lx, ly, event) => {
+        event.stopPropagation()
+        this.back()
+      })
+
+    this.scene.tweens.add({
+      targets: [this.submitButton, this.backButton],
+      alpha: 1,
+      duration: 100,
+      delay: 300,
+    })
   }
 }

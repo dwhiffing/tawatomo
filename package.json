@@ -1,5 +1,5 @@
 {
-  "name": "pointclick",
+  "name": "tawatomo",
   "version": "0.0.1",
   "description": "A Point and Click game",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
   "author": "Daniel Whiffing <danielwhiffing@gmail.com> (http://www.infinite-ramble.com)",
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-  "homepage": "https://github.com/dwhiffing/pointclick",
+  "homepage": "https://github.com/dwhiffing/tawatomo",
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",

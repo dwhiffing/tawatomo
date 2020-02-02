@@ -11,7 +11,6 @@ export default class extends GameScene {
 
   create() {
     const { height, width } = this.game.config
-    this.angrySound = this.sound.add('angry3')
     this.cookSound = this.sound.add('cook')
 
     const giveTurtle = () => {
@@ -48,7 +47,6 @@ export default class extends GameScene {
 
     new Background(this, 'village')
     const fire = new Item(this, width / 2 - 200, height / 1.5, 'fire', () => {
-      this.angrySound.play()
       terry.respond('ME HOT ! YOU NO HAVE !', false, 2)
     })
 
@@ -86,5 +84,6 @@ export default class extends GameScene {
 
     this.showReturn('Forest', 'trees')
     this.showInventory()
+    super.create()
   }
 }

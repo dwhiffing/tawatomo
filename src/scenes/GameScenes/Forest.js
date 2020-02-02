@@ -102,6 +102,7 @@ export default class extends GameScene {
 
     this.showInventory()
     this.showReturn('Ship', 'shipLogo')
+    super.create()
   }
 
   getExitFromPointer(pointer) {

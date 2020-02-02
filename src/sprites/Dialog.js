@@ -17,9 +17,9 @@ export default class Dialog {
     this.x = x
     this.y = y
     this.glyphs = []
-    this.shadow = scene.add.sprite(0, y - 100, 'shadow')
+    this.shadow = scene.add.sprite(0, height, 'shadow')
     this.shadow.setOrigin(0, 0)
-    this.rect = scene.add.sprite(x, y, 'character-bg')
+    this.rect = scene.add.sprite(x, height, 'character-bg')
     this.rect.setOrigin(0, 0)
     this.textObject = scene.add.text(x + 50, y + 60, this.displayString, {
       fontFamily: 'Arial',
@@ -27,16 +27,12 @@ export default class Dialog {
       align: 'center',
     })
     this.updateText = this.updateText.bind(this)
-    this.updateText()
     this.rect.setInteractive()
     this.rect.on('pointerdown', (pointer, localX, localY, event) => {
       event.stopPropagation()
 
       if (this.cursor === this.text.split(' ').length - 1) {
-        this.rect.destroy()
-        this.textObject.destroy()
-        this.shadow.destroy()
-        this.glyphs.forEach(g => g.destroy())
+        this.destroy()
         if (callback) {
           new Prompt(this.scene, response => {
             this.scene.data.values.talking = false
@@ -48,6 +44,21 @@ export default class Dialog {
         }
       }
     })
+
+    this.scene.tweens.add({
+      targets: [this.rect],
+      y: y,
+      duration: 500,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: [this.shadow],
+      y: y - 100,
+      duration: 500,
+      ease: 'Power2',
+    })
+    setTimeout(this.updateText, 500)
   }
 
   updateText() {
@@ -75,5 +86,30 @@ export default class Dialog {
       this.cursor += 1
       setTimeout(this.updateText, 180)
     }
+  }
+
+  destroy() {
+    const height = this.scene.game.config.height
+    this.scene.tweens.add({
+      targets: [this.rect],
+      y: height,
+      duration: 250,
+      ease: 'Power2',
+    })
+
+    this.scene.tweens.add({
+      targets: [this.shadow],
+      y: height,
+      duration: 250,
+      ease: 'Power2',
+    })
+
+    this.glyphs.forEach(g => g.destroy())
+
+    setTimeout(() => {
+      this.rect.destroy()
+      this.textObject.destroy()
+      this.shadow.destroy()
+    }, 250)
   }
 }

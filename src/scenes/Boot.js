@@ -16,14 +16,16 @@ export default class extends Phaser.Scene {
       )
     })
 
+    this.load.audio('introMusic', 'assets/audio/intro-music.mp3')
+    this.load.audio('gameMusic', 'assets/audio/game-music.mp3')
+
     this.load.audio('dialog', 'assets/audio/dialog.wav')
     this.load.audio('dialog2', 'assets/audio/dialog2.wav')
     this.load.audio('terryDialog', 'assets/audio/terry.wav')
 
     this.load.audio('eat', 'assets/audio/eat.wav')
     this.load.audio('fish', 'assets/audio/fish.wav')
-    this.load.audio('angry3', 'assets/audio/angry3.wav')
-    this.load.audio('angry', 'assets/audio/angry.wav')
+    this.load.audio('angry', 'assets/audio/angry4.wav')
     this.load.audio('cook', 'assets/audio/cook.wav')
     this.load.audio('shinySound', 'assets/audio/shiny.wav')
     this.load.audio('move', 'assets/audio/move.wav')
@@ -32,9 +34,9 @@ export default class extends Phaser.Scene {
     this.load.audio('turtleSound', 'assets/audio/turtle.wav')
     this.load.audio('repairShip', 'assets/audio/repair-ship.wav')
     this.load.audio('shipDead', 'assets/audio/ship-dead.wav')
-    this.load.audio('disable', 'assets/audio/disablex.wav')
+    this.load.audio('disable', 'assets/audio/backspace.wav')
     this.load.audio('submitSound', 'assets/audio/good.wav')
-    this.load.audio('typeSound', 'assets/audio/Hit_Hurt2.wav')
+    this.load.audio('typeSound', 'assets/audio/type.wav')
 
     this.load.spritesheet('glyph', 'assets/images/glyphs.png', {
       frameWidth: 200,

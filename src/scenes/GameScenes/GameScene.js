@@ -9,6 +9,17 @@ export default class GameScene extends Phaser.Scene {
     this.moveSound = this.sound.add('move')
   }
 
+  create() {
+    const rect = this.add
+      .rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000)
+      .setOrigin(0, 0)
+    this.tweens.add({
+      targets: rect,
+      alpha: 0,
+      duration: 300,
+    })
+  }
+
   hasItem(item) {
     return this.data.values.inventory.includes(item)
   }
@@ -80,8 +91,19 @@ export default class GameScene extends Phaser.Scene {
 
   goto(place) {
     if (!this.data.values.talking) {
+      const rect = this.add
+        .rectangle(0, 0, this.game.config.width, this.game.config.height, 0x000)
+        .setOrigin(0, 0)
+        .setAlpha(0)
+      this.tweens.add({
+        targets: rect,
+        alpha: 1,
+        duration: 300,
+      })
       this.moveSound.play()
-      this.scene.start(place, { ...this.data.values })
+      setTimeout(() => {
+        this.scene.start(place, { ...this.data.values })
+      }, 500)
     }
   }
 }

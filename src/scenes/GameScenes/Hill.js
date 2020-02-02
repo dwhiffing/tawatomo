@@ -38,5 +38,6 @@ export default class extends GameScene {
 
     this.showReturn('Forest', 'trees')
     this.showInventory()
+    super.create()
   }
 }
